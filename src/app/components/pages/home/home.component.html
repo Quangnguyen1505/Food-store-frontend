@@ -1,5 +1,10 @@
 <app-search></app-search>
 <app-tags></app-tags>
+<app-not-found
+    [visible]="!foods || !foods.length"
+    notFoundMessage = " No food found !!"
+    resetLinkText = "Go To Homepage"
+></app-not-found>
 <ul>
     <li *ngFor="let food of foods">
         <a routerLink="/food/{{food.id}}">
@@ -9,7 +14,7 @@
                     {{food.name}}
                 </div>
                 <span class="favorive {{food.favorite? '': 'not'}} " >
-                    🤍
+                    ❤
                 </span>
                 <div class="product-item-footer">
                     <div class="origins">

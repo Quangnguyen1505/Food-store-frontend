@@ -1,9 +1,14 @@
-<div class="back">
+<div *ngIf="food.id" class="back">
     <span>
         <a routerLink="/">🔙</a>
     </span>
 </div>
-<div class="container">
+<app-not-found
+    [visible]="!food.id"
+    notFoundMessage = " No food found !!"
+    resetLinkText = "Go To Homepage"
+></app-not-found>
+<div *ngIf="food.id" class="container">
     <img [src]="food.imageUrl" [alt]="food.name"/>
     <div class="details">
         <div class="header">
