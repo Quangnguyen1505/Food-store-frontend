@@ -11,6 +11,8 @@ export class TagsComponent {
   tags?:Tag[] = [];
 
   constructor( private foodServices:FoodService){
-    this.tags = this.foodServices.getAllTags();
+    foodServices.getAllTags().subscribe(reponse => {
+      this.tags = reponse.metadata;
+    });
   }
 }

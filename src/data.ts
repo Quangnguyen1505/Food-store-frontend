@@ -3,7 +3,7 @@ import { Food } from "./app/shared/models/food";
 
 export const sample_foods: Food[] = [
     {
-      id:'1',
+      _id:'1',
       name: 'Pizza Pepperoni',
       cookTime: '10-20',
       price: 10,
@@ -14,18 +14,18 @@ export const sample_foods: Food[] = [
       tags: ['FastFood', 'Pizza', 'Lunch'],
     },
     {
-      id:'2',
+      _id:'2',
       name: 'Meatball',
       price: 20,
       cookTime: '20-30',
       favorite: true,
-      origins: ['persia', 'middle east', 'china'],
+      origins: ['persia', 'm_iddle east', 'china'],
       stars: 4.7,
       imageUrl: 'assets/food-2.jpg',
       tags: ['SlowFood', 'Lunch'],
     },
     {
-      id:'3',
+      _id:'3',
       name: 'Hamburger',
       price: 5,
       cookTime: '10-15',
@@ -36,7 +36,7 @@ export const sample_foods: Food[] = [
       tags: ['FastFood', 'Hamburger'],
     },
     {
-      id:'4',
+      _id:'4',
       name: 'Fried Potatoes',
       price: 2,
       cookTime: '15-20',
@@ -47,7 +47,7 @@ export const sample_foods: Food[] = [
       tags: ['FastFood', 'Fry'],
     },
     {
-      id:'5',
+      _id:'5',
       name: 'Chicken Soup',
       price: 11,
       cookTime: '40-50',
@@ -58,7 +58,7 @@ export const sample_foods: Food[] = [
       tags: ['SlowFood', 'Soup'],
     },
     {
-      id:'6',
+      _id:'6',
       name: 'Vegetables Pizza',
       price: 9,
       cookTime: '40-50',

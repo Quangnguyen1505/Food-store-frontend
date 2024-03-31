@@ -12,14 +12,20 @@ import { Food } from 'src/app/shared/models/food';
 export class FoodPageComponent {
   food!: Food;
   constructor(activatedRoute: ActivatedRoute, foodServices: FoodService,
-   private cartServices:CartService, private router: Router){
+   private cartServices:CartService, private router: Router)
+   {
     activatedRoute.params.subscribe((params) => {
-      if(params.id) this.food = foodServices.getFoodById(params.id)
+      console.log("as",params.id);
+      
+      if(params.id){ foodServices.getFoodById(params.id).subscribe(respone => {
+        this.food = respone.metadata;
+      })
+      }
     })
   }
 
-  addToCart(){
-    this.cartServices.addToCart(this.food);
-    this.router.navigateByUrl('/cart-page');
-  }
+  // addToCart(){
+  //   this.cartServices.addToCart(this.food);
+  //   this.router.navigateByUrl('/cart-page');
+  // }
 }

@@ -1,14 +1,14 @@
-<div *ngIf="food.id" class="back">
+<div *ngIf="food._id" class="back">
     <span>
         <a routerLink="/">🔙</a>
     </span>
 </div>
 <app-not-found
-    [visible]="!food.id"
+    [visible]="!food._id"
     notFoundMessage = " No food found !!"
     resetLinkText = "Go To Homepage"
 ></app-not-found>
-<div *ngIf="food.id" class="container">
+<div *ngIf="food._id" class="container">
     <img [src]="food.imageUrl" [alt]="food.name"/>
     <div class="details">
         <div class="header">
@@ -39,6 +39,7 @@
             </span>
         </div>
         
-        <button (click)="addToCart()">Add to Cart</button>
+        <!-- <button (click)="addToCart()">Add to Cart</button> -->
+        <button>Add to Cart</button>
     </div>
 </div>
