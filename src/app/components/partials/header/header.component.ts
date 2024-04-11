@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from 'src/app/shared/models/User';
 
 @Component({
   selector: 'app-header',
@@ -11,13 +11,25 @@ import { User } from 'src/app/shared/models/User';
 export class HeaderComponent {
   cartQuantity = 0;
   user!:any;
-  constructor(cartService: CartService, userService: UserService){
-    cartService.getCartObservable().subscribe((newCart) => {
-      this.cartQuantity = newCart.totalCount;
-    })
+  constructor(cartService: CartService, private userService: UserService, private router:Router){
+    // cartService.getCartObservable().subscribe((newCart) => {
+    //   this.cartQuantity = newCart.totalCount;
+    // })
 
     userService.userObservable.subscribe((newUser)=>{
-      this.user = newUser
+      console.log("new uswe", newUser);
+      
+      this.user = newUser;
     })
   }
+
+  logout(){
+    this.userService.logout().subscribe(()=>{
+      window.location.reload();
+    });
+  }
+  get token(){
+    return this.user.metadata.tokens.asscessToken;
+  }
+
 }

@@ -4,15 +4,14 @@
         <nav>
             <ul>
                 <li>
-                    <a routerLink="/login" *ngIf="!user.metadata.shop._id">Login</a>
-                    <a routerLink="/login" *ngIf="user.metadata.shop._id">Logout</a>
+                    <a routerLink="/login" *ngIf="!user">Login</a>
                 </li>
-                <li class="menu-container">
-                    <a routerLink="/dashboard">{{user.metadata.shop.name}}</a>
+                <li class="menu-container" *ngIf="user">
+                    <a routerLink="/dashboard">{{user.metadata.name}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
                         <a routerLink="/order">Orders</a>
-                        <a>Logout</a>
+                        <a (click)="logout()" >Logout</a>
                     </div>
                 </li>
                 <li>
