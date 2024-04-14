@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { USER_LOGIN, USER_LOGOUT, USER_PROFILE } from '../shared/constants/urls';
+import { USER_LOGIN, USER_LOGOUT, USER_PROFILE, USER_SIGNUP } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 
 const USER_KEY = "accessToken"
@@ -40,6 +40,25 @@ export class UserService {
     );
   }
 
+  register(userRegister: any): Observable<any> {
+    return this.http.post<any>(USER_SIGNUP, userRegister).pipe(
+      tap({
+        next: (user) => {
+          this.setUserToLocalStorageRegister(user)
+          localStorage.setItem(USER_ID, JSON.stringify(user.metadata.metadata.shop._id));
+          this.getProfile();
+          this.toastrServices.success(
+            `Welcome to Foodmine ${user.metadata.metadata.shop.name}!`,
+            'Register Successful'
+          )
+        },
+        error: (e) => {
+          this.toastrServices.error(e.error.message, 'Login Failed!')
+        }
+      })
+    )
+  }
+
   getProfile(): void{
     const accessToken = this.getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
@@ -69,6 +88,10 @@ export class UserService {
       .set('authorization', `Bearer ${accessToken}`)
       .set('x-client-id', parseClientId);
       return headers
+  }
+
+  private setUserToLocalStorageRegister(user: any){
+    localStorage.setItem(USER_KEY, JSON.stringify(user.metadata.metadata.tokens.asscessToken));
   }
 
   private setUserToLocalStorage(user: any){
@@ -116,5 +139,4 @@ export class UserService {
     )
     return logoutHttp;
   }
-  
 }

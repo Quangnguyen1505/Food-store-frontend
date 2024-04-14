@@ -8,5 +8,6 @@ export const FOOD_ALL_TAG_URL = FOOD_URL + '/AllFoodBytag/'
 
 export const USER_URL = BASE_URL + '/v1/api/access'
 export const USER_LOGIN = USER_URL + '/login'
+export const USER_SIGNUP = USER_URL + '/signUp'
 export const USER_LOGOUT = USER_URL + '/logout'
 export const USER_PROFILE = USER_URL + '/profile'

@@ -1,22 +1,15 @@
-.container{
+.container {
     display: flex;
     justify-content: center;
-    align-items: center;
     height: 100%;
     margin-top: 3rem;
 }
 
-.details{
-    width: 50rem;
+.details {
+    width: 30rem;
 }
 
-form{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.register {
+.login{
     display: flex;
     justify-content: center;
     align-items: center;
