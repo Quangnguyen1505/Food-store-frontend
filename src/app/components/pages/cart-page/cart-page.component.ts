@@ -9,20 +9,20 @@ import { CartItem } from 'src/app/shared/models/CartItem';
   styleUrls: ['./cart-page.component.css']
 })
 export class CartPageComponent {
-  cart!: Cart;
+  cart!: any;
 
   constructor(private cartService: CartService){
-    this.cartService.getCartObservable().subscribe((cart)=>{
-      this.cart = cart;
+    this.cartService.cartObservable.subscribe((cart)=>{
+      this.cart = cart;    
     })
   }
 
   removeFromCart(cartItem: CartItem){
-    this.cartService.removeFormCart(cartItem.food._id);
+    /*this.cartService.removeFormCart(cartItem.food._id);*/
   }
 
   changeQuantity(cartItem: CartItem, quantityInString: string){
     const quantity = parseInt(quantityInString);
-    this.cartService.changeQuantity(cartItem.food._id, quantity);
+    this.cartService.changeQuantity(cartItem, quantity);
   }
 }

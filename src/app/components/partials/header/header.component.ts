@@ -12,13 +12,11 @@ export class HeaderComponent {
   cartQuantity = 0;
   user!:any;
   constructor(cartService: CartService, private userService: UserService, private router:Router){
-    // cartService.getCartObservable().subscribe((newCart) => {
-    //   this.cartQuantity = newCart.totalCount;
-    // })
+    cartService.cartObservable.subscribe((newCart) => {
+      this.cartQuantity = newCart.metadata.cart_foods.length;
+    })
 
     userService.userObservable.subscribe((newUser)=>{
-      console.log("new uswe", newUser);
-      
       this.user = newUser;
     })
   }

@@ -10,6 +10,4 @@ export class NotFoundComponent {
     @Input() notFoundMessage = "Nothing Found!";
     @Input() resetLinkText = "Reset";
     @Input() resetLinkRoute = "/";
-
-    
 }

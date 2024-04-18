@@ -25,7 +25,6 @@ export class HomeComponent implements OnInit {
         this.foodServices.getAllFoodsBySearchTerm(params.searchTerm).subscribe(
           response => {
             this.foods = response.metadata; // Lấy dữ liệu từ trường metadata
-            console.log("data::", response.metadata);
             
           },
           error => {

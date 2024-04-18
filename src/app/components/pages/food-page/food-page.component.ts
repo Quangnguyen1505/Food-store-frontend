@@ -9,14 +9,12 @@ import { Food } from 'src/app/shared/models/food';
   templateUrl: './food-page.component.html',
   styleUrls: ['./food-page.component.css']
 })
-export class FoodPageComponent {
+export default class FoodPageComponent {
   food!: Food;
   constructor(activatedRoute: ActivatedRoute, foodServices: FoodService,
    private cartServices:CartService, private router: Router)
    {
     activatedRoute.params.subscribe((params) => {
-      console.log("as",params.id);
-      
       if(params.id){ foodServices.getFoodById(params.id).subscribe(respone => {
         this.food = respone.metadata;
       })
@@ -24,8 +22,8 @@ export class FoodPageComponent {
     })
   }
 
-  // addToCart(){
-  //   this.cartServices.addToCart(this.food);
-  //   this.router.navigateByUrl('/cart-page');
-  // }
+   addToCart(){
+     this.cartServices.addToCart(this.food);
+     this.router.navigateByUrl('/cart-page');
+  }
 }

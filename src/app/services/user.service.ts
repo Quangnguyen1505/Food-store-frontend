@@ -4,6 +4,7 @@ import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { USER_LOGIN, USER_LOGOUT, USER_PROFILE, USER_SIGNUP } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
+import { CartService } from './cart.service';
 
 const USER_KEY = "accessToken"
 const USER_ID = "userId"
@@ -14,7 +15,7 @@ export class UserService {
   private userSubject = new BehaviorSubject<any>(this.getUserFromLocalStorage());
   public userObservable:Observable<any>;
 
-  constructor(private http:HttpClient, private toastrServices:ToastrService) {
+  constructor(private http:HttpClient, private toastrServices:ToastrService, private cartService: CartService) {
     this.userObservable = this.userSubject.asObservable();
   }
 
@@ -27,6 +28,7 @@ export class UserService {
           this.setUserToLocalStorage(user)
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.shop._id));
           this.getProfile();
+          this.cartService.getCart();
           // this.userSubject.next(user);
           this.toastrServices.success(
             `Welcome to Foodmine ${user.metadata.shop.name}!`,
@@ -47,6 +49,7 @@ export class UserService {
           this.setUserToLocalStorageRegister(user)
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.metadata.shop._id));
           this.getProfile();
+          this.cartService.getCart();
           this.toastrServices.success(
             `Welcome to Foodmine ${user.metadata.metadata.shop.name}!`,
             'Register Successful'
@@ -102,7 +105,7 @@ export class UserService {
     const userJson = localStorage.getItem(USER_KEY);
     if (userJson) {
       try {
-        const user = JSON.parse(userJson);
+        const user = JSON.parse(userJson);   
         return user;
       } catch (error) {
         console.error('Error parsing user data from localStorage:', error);

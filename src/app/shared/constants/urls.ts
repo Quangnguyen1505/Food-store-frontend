@@ -11,3 +11,7 @@ export const USER_LOGIN = USER_URL + '/login'
 export const USER_SIGNUP = USER_URL + '/signUp'
 export const USER_LOGOUT = USER_URL + '/logout'
 export const USER_PROFILE = USER_URL + '/profile'
+
+export const CART_URL = BASE_URL + '/v1/api/cart'
+export const CART_ADD = CART_URL + '/addToCart'
+export const CART_QUANTITY = CART_URL + '/updateQuantity'
