@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Food } from '../shared/models/food';
 import { CartItem } from '../shared/models/CartItem';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { CART_ADD, CART_QUANTITY, CART_URL } from '../shared/constants/urls';
+import { CART_ADD, CART_DELETE, CART_QUANTITY, CART_URL } from '../shared/constants/urls';
 
 const USER_KEY = "accessToken"
 const USER_ID = "userId"
@@ -14,7 +14,7 @@ const USER_ID = "userId"
 })
 export class CartService {
   // private cart: Cart = this.getCartFromLocalStorage();
-  private cartSubject = new BehaviorSubject<any>(null);
+  private cartSubject = new BehaviorSubject<any>(this.getCart());
   public cartObservable: Observable<any>;
 
   constructor(private http: HttpClient) { 
@@ -26,14 +26,6 @@ export class CartService {
     const clientId = localStorage.getItem(USER_ID);
     
     if (!accessToken || !clientId) {
-      // if (this.cart.items) {
-      //   let cartItem = this.cart.items.find(item => item.food._id === food._id);
-      //   if (cartItem) return;
-      // } else {
-      //   this.cart.items = [];
-      // }
-      // this.cart.items.push(new CartItem(food));
-      // this.setCartToLocalStorage();
       console.log("error AT & CLID");
       return;
     } else {
@@ -109,6 +101,13 @@ export class CartService {
 
     this.http.get<any>( CART_URL, { headers }).subscribe(
       (data) => {
+        let totalCount =0 , totalPrice = 0;
+        for (let index = 0; index < data?.metadata.cart_foods.length; index++) {
+          totalCount = totalCount + data?.metadata.cart_foods[index].quantity;
+          totalPrice = totalPrice + (data?.metadata.cart_foods[index].quantity * data.metadata?.cart_foods[index].price);
+        }
+        data.totalCount = totalCount;
+        data.totalPrice = totalPrice;
         this.cartSubject.next(data);
       },
       (error) => {
@@ -139,12 +138,25 @@ export class CartService {
     return null;
   }
 
-  // removeFormCart(foodId: string): void {
-  //   if (this.cart.items) {
-  //     this.cart.items = this.cart.items.filter(item => item.food._id !== foodId);
-  //     this.setCartToLocalStorage();
-  //   }
-  // }
+  removeFormCart(foodId: string): void {
+    const accessToken = this.getUserFromLocalStorage();
+    const clientId = localStorage.getItem(USER_ID);
+    if(!accessToken || !clientId) {
+      console.log("error AT & CLID");
+      return;
+    }
+    const parseClientId = JSON.parse(clientId);
+    const headers = this.setHeaders(accessToken, parseClientId);
+
+    this.http.get<any>(`${CART_DELETE}/${foodId}`, { headers }).subscribe(
+      (data) => {
+        this.getCart();
+      },
+      (error) => {
+        console.error('Error fetching user profile:', error);
+      }
+    );
+  }
 
   // changeQuantity(foodId: string, quantity: number): void {
   //   let cartItem = this.cart.items.find(item => item.food._id === foodId);

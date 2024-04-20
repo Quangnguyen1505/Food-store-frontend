@@ -8,11 +8,12 @@ import { CartService } from './cart.service';
 
 const USER_KEY = "accessToken"
 const USER_ID = "userId"
+const CHECKOUT_DATA = "checkoutData"
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private userSubject = new BehaviorSubject<any>(this.getUserFromLocalStorage());
+  private userSubject = new BehaviorSubject<any>(this.getProfile());
   public userObservable:Observable<any>;
 
   constructor(private http:HttpClient, private toastrServices:ToastrService, private cartService: CartService) {
@@ -134,6 +135,7 @@ export class UserService {
           )
           localStorage.removeItem(USER_KEY);
           localStorage.removeItem(USER_ID);
+          localStorage.removeItem(CHECKOUT_DATA);
         },
         error: (e) => {
           this.toastrServices.error(e.error.message, 'out Failed!')

@@ -15,3 +15,6 @@ export const USER_PROFILE = USER_URL + '/profile'
 export const CART_URL = BASE_URL + '/v1/api/cart'
 export const CART_ADD = CART_URL + '/addToCart'
 export const CART_QUANTITY = CART_URL + '/updateQuantity'
+export const CART_DELETE = CART_URL + '/delete'
+
+export const ORDER_REVIEW = BASE_URL + '/v1/api/checkout'

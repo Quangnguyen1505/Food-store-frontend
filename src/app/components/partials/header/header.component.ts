@@ -9,11 +9,15 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  cartQuantity = 0;
+  cartQuantity!: number;
   user!:any;
   constructor(cartService: CartService, private userService: UserService, private router:Router){
     cartService.cartObservable.subscribe((newCart) => {
-      this.cartQuantity = newCart.metadata.cart_foods.length;
+      if(!newCart){
+        this.cartQuantity = 0;
+      }else{
+        this.cartQuantity = newCart?.metadata.cart_foods.length;
+      }
     })
 
     userService.userObservable.subscribe((newUser)=>{

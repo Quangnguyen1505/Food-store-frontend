@@ -11,7 +11,7 @@
                 <img [src]="cartItem.img" [alt]="cartItem.name">
             </div>
             <div>
-                <a routerLink="/food/{{cartItem._id}}">
+                <a routerLink="/food/{{cartItem.foodId}}">
                  {{cartItem.name}}
                 </a>
             </div>
@@ -33,16 +33,15 @@
             </div>
 
             <div>
-                <button class="remove-button" (click)="removeFromCart(cartItem)">Remove</button>
+                <button class="remove-button" (click)="removeFromCart(cartItem.foodId)">Remove</button>
             </div>
         </li>
     </ul>
     <div class="checkout">
         <div>
-            
-            <div class="foods-count">{{cart.metadata}}</div>
-            <div class="total-price">{{cart.metadata|currency}}</div>
+            <div class="foods-count">{{cart.totalCount}}</div>
+            <div class="total-price">{{cart.totalPrice|currency}}</div>
         </div>
-        <a routerLink="/checkout">Proceed to Checkout</a>
+        <a (click)="checkOutReview()">Proceed to Checkout</a>
     </div>
 </div>

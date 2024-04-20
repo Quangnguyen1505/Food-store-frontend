@@ -1,0 +1,17 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+    height: 100%;
+}
+
+.details{
+    width: 35rem;
+}
+
+
+.back span{
+    font-size: 2.5rem;
+    margin: 5rem;
+}
