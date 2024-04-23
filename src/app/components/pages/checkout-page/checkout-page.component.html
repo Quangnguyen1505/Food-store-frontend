@@ -3,12 +3,13 @@
         <app-title title="Order form" margin="1.6rem"></app-title>
         <form [formGroup]="checkoutForm">
             <text-input [control]="fc.name" label="Name"></text-input>
+            <text-input [control]="fc.address" label="Address"></text-input>
         </form>
         <order-items-list [order]="order" [totalPrice]="totalPrice"></order-items-list>
     </div>
     <div class="buttons-container">
         <div class="buttons">
-            <button (click)="createOrder()"> Go To Payment </button>
+            <button (click)="createOrder(order, user_address)"> Go To Payment </button>
         </div>
     </div>
 </div>

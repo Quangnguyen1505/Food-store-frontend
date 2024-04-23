@@ -5,10 +5,11 @@ import { Component, Input } from '@angular/core';
   templateUrl: './order-items-list.component.html',
   styleUrls: ['./order-items-list.component.css']
 })
-export class OrderItemsListComponent {
+export class OrderItemsListComponent{
   @Input()
   order!: any;
-
+  
   @Input()
   totalPrice!: number;
+
 }

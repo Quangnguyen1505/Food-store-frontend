@@ -10,7 +10,7 @@
                     <a routerLink="/dashboard">{{user.metadata.name}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Profile</a>
-                        <a routerLink="/checkout">Orders</a>
+                        <a (click)="checkOrder()" routerLink="/order/{{getCheckoutId()}}">Orders</a>
                         <a (click)="logout()" >Logout</a>
                     </div>
                 </li>

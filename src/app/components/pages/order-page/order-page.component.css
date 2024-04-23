@@ -1,0 +1,21 @@
+.container{
+    display: flex;
+    justify-content: center;
+}
+
+.details{
+    width: 40rem;
+}
+
+.profile{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.profile__item{
+    display: flex;
+    justify-content: center;
+    margin: 2rem;
+}

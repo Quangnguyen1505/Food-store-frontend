@@ -19,6 +19,14 @@
             </text-input>
 
             <text-input
+            label="Address"
+            type="text"
+            [control]="fc.address" 
+            [showErrorsWhen]="isSubmitted"
+            >
+            </text-input>
+
+            <text-input
             label="Password"
             type="password"
             [control]="fc.password" 

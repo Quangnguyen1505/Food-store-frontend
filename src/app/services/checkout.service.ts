@@ -1,29 +1,34 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CART_URL, ORDER_REVIEW } from '../shared/constants/urls';
+import { CART_URL, ORDER_BY_USER, ORDER_LIST, ORDER_REVIEW } from '../shared/constants/urls';
+import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 const USER_KEY = "accessToken"
 const USER_ID = "userId"
-
+const CART_ID = "cartId"
+const CHECKOUT_DATA = "checkoutData"
+const CHECKOUT_ID = "checkoutId"
 @Injectable({
   providedIn: 'root'
 })
 export class CheckoutService {
   private checkoutSubject = new BehaviorSubject<any>(this.retrieveCheckoutData());
   public checkoutObservable:Observable<any>;
-  constructor( private http: HttpClient ) {
+  constructor( private http: HttpClient, private toastrServices:ToastrService, private router: Router ) {
     this.checkoutObservable = this.checkoutSubject.asObservable();
   }
 
   private retrieveCheckoutData(): any {
-    const storedData = localStorage.getItem('checkoutData');
+    const storedData = localStorage.getItem(CHECKOUT_DATA);
     return storedData ? JSON.parse(storedData) : null;
   }
 
   private saveCheckoutData(data: any): void {
-    localStorage.setItem('checkoutData', JSON.stringify(data));
+    localStorage.setItem(CHECKOUT_DATA, JSON.stringify(data));
   }
+
   checkOutReview(cartItem: any){
     const accessToken = this.getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
@@ -31,13 +36,15 @@ export class CheckoutService {
       console.log("error AT & CLID");
       return;
     }
+
     const parseClientId = JSON.parse(clientId);
     const headers = this.setHeaders(accessToken, parseClientId);
     
     const foodsOrder = cartItem.cart_foods.map((item: any) => ({
       foodId: item.foodId,
       price: item.price,
-      quantity: item.quantity
+      quantity: item.quantity,
+      img: item.img
     }));
 
     
@@ -50,8 +57,76 @@ export class CheckoutService {
 
     this.http.post<any>(ORDER_REVIEW, data, { headers }).subscribe(
       (data) => {
+        localStorage.setItem(CART_ID, JSON.stringify(cartItem._id));
         this.saveCheckoutData(data);
         this.checkoutSubject.next(data)
+      },
+      (error) => {
+        console.error('Error fetching user profile:', error);
+      }
+    );
+  }
+
+  orderByUser(order: any, user_address: string){
+    const accessToken = this.getUserFromLocalStorage();
+    const clientId = localStorage.getItem(USER_ID);
+    const cartId = localStorage.getItem(CART_ID);
+    if(!accessToken || !clientId || !cartId) {
+      console.log("error AT & CLID");
+      return;
+    }
+    const parseClientId = JSON.parse(clientId);
+    const parseCartId = JSON.parse(cartId);
+    
+    const headers = this.setHeaders(accessToken, parseClientId);
+    
+    const foodsOrder = order.map((item: any) => ({
+      foodId: item.foodId,
+      price: item.price,
+      quantity: item.quantity,
+      img: item.img,
+      name: item.name
+    }));
+
+    const data = {
+      userId: parseClientId,
+      cartId: parseCartId,
+      user_address,
+      foods_order: foodsOrder
+    }
+
+    this.http.post<any>(ORDER_BY_USER, data, { headers }).subscribe(
+      (data) => {
+        localStorage.setItem(CHECKOUT_ID, data?.metadata._id)
+        this.checkoutSubject.next(data)
+        this.toastrServices.success(
+          `Order successfuly!`
+        )
+        localStorage.removeItem(CART_ID);
+        localStorage.removeItem(CHECKOUT_DATA);
+        // window.location.reload();
+        this.router.navigateByUrl('/order/'+data?.metadata._id);
+      },
+      (error) => {
+        console.error('Error fetching user profile:', error);
+      }
+    );
+  }
+
+  getListOrder(paramsId: any){
+    const accessToken = this.getUserFromLocalStorage();
+    const clientId = localStorage.getItem(USER_ID);
+    //const checkoutId = localStorage.getItem(CHECKOUT_ID);
+    if ( !accessToken || !clientId ) {
+      console.log("error token or clientId::");
+      return;
+    }
+    const parseClientId = JSON.parse(clientId);
+    const headers = this.setHeaders(accessToken, parseClientId);
+
+    this.http.get<any>( ORDER_LIST + paramsId, { headers }).subscribe(
+      (data) => {
+        this.checkoutSubject.next(data);
       },
       (error) => {
         console.error('Error fetching user profile:', error);

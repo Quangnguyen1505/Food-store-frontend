@@ -25,6 +25,12 @@ import { LoadingInterceptor } from './shared/interceptors/loading.interceptor';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
 import { OrderItemsListComponent } from './components/partials/order-items-list/order-items-list.component';
+import { BannerComponent } from './components/partials/banner/banner.component';
+import { ForgotPassordComponent } from './components/pages/forgot-passord/forgot-passord.component';
+import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
+import { OrderPageComponent } from './components/pages/order-page/order-page.component';
+import { FooterComponent } from './components/partials/footer/footer.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -46,7 +52,12 @@ import { OrderItemsListComponent } from './components/partials/order-items-list/
     LoadingComponent,
     ProfileComponent,
     CheckoutPageComponent,
-    OrderItemsListComponent
+    OrderItemsListComponent,
+    BannerComponent,
+    ForgotPassordComponent,
+    ResetPasswordComponent,
+    OrderPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -58,7 +69,8 @@ import { OrderItemsListComponent } from './components/partials/order-items-list/
       timeOut: 3000,
       positionClass: 'toast-bottom-right',
       newestOnTop: false
-    })
+    }),
+    FontAwesomeModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}

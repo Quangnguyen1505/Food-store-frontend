@@ -3,18 +3,24 @@
         <a routerLink="/">🔙</a>
     </span>
 </div>
+<app-title title="Profile" margin="1.6rem"></app-title>
 <div class="container">
     <div class="details">
-        <input-container label="Họ Tên">
-            <input type="text" [value]="user.name" readonly/>
-        </input-container>
+        <div class="profile">
+            <span>Full name: {{user.name}}</span>
+        </div>
 
-        <input-container label="Email">
-            <input type="text" [value]="user.email" readonly/>
-        </input-container>
+        <div class="profile">
+            <span>Email: {{user.email}}</span>
+        </div>
+        
+        <div class="profile">
+            <span>Address: {{user.address}}</span>
+        </div>
 
-        <input-container label="Status">
-            <input type="text" [value]="user.status" readonly/>
-        </input-container>
+        <div class="profile">
+            <span>Status: {{user.status}}</span>
+        </div>
+
     </div>
 </div>

@@ -6,7 +6,7 @@
 ></app-not-found>
 <div *ngIf="cart" class="container">
     <ul>
-        <li *ngFor="let cartItem of cart.metadata.cart_foods">
+        <li *ngFor="let cartItem of cart.metadata?.cart_foods">
             <div>
                 <img [src]="cartItem.img" [alt]="cartItem.name">
             </div>

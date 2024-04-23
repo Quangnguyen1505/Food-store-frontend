@@ -7,6 +7,9 @@ import { LoginPageComponent } from './components/pages/login-page/login-page.com
 import { RegisterPageComponent } from './components/pages/register-page/register-page.component';
 import { ProfileComponent } from './components/pages/profile/profile.component';
 import { CheckoutPageComponent } from './components/pages/checkout-page/checkout-page.component';
+import { ForgotPassordComponent } from './components/pages/forgot-passord/forgot-passord.component';
+import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
+import { OrderPageComponent } from './components/pages/order-page/order-page.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -16,8 +19,11 @@ const routes: Routes = [
   {path: 'cart-page', component: CartPageComponent},
   {path: 'login', component: LoginPageComponent},
   {path: 'register', component: RegisterPageComponent},
-{path: 'profile', component: ProfileComponent},
-  {path: 'checkout', component: CheckoutPageComponent}
+  {path: 'profile', component: ProfileComponent},
+  {path: 'checkout', component: CheckoutPageComponent},
+  {path: 'order/:id', component: OrderPageComponent},
+  {path: 'forgot-password', component: ForgotPassordComponent},
+  {path: 'reset-password/:resetToken', component: ResetPasswordComponent}
 ];
 
 @NgModule({

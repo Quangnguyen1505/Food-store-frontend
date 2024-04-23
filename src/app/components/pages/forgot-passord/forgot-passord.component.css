@@ -1,0 +1,23 @@
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5rem;
+}
+
+.details{
+    width: 40rem;
+}
+
+.reset-password{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reset-password input {
+    width: 10rem;
+    height: 3rem;
+}
+
+

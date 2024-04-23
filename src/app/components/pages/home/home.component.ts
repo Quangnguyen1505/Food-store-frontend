@@ -12,6 +12,7 @@ import { Food } from 'src/app/shared/models/food';
 export class HomeComponent implements OnInit {
 
   foods:Food[] = [];
+  checkTerm: boolean = false;
 
   constructor( private foodServices:FoodService,  activatedRoute: ActivatedRoute){
     // let foodsObservalbe:Observable<Food[]>;
@@ -25,7 +26,7 @@ export class HomeComponent implements OnInit {
         this.foodServices.getAllFoodsBySearchTerm(params.searchTerm).subscribe(
           response => {
             this.foods = response.metadata; // Lấy dữ liệu từ trường metadata
-            
+            this.checkTerm = true;
           },
           error => {
             console.error('Lỗi khi lấy dữ liệu thức ăn:', error);
@@ -36,8 +37,7 @@ export class HomeComponent implements OnInit {
         this.foodServices.getAllFoodsByTag(params.tag).subscribe(
           response => {
             this.foods = response.metadata; // Lấy dữ liệu từ trường metadata
-            console.log("data::", response.metadata);
-            
+            this.checkTerm = true;
           },
           error => {
             console.error('Lỗi khi lấy dữ liệu thức ăn:', error);

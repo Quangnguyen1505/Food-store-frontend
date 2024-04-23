@@ -1,0 +1,29 @@
+.container-fuild{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+    width: 100%;
+}
+.banner-wrapper {
+    position: relative;
+}
+
+.banner-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; /* Màu văn bản */
+    text-align: center; /* Canh chỉnh văn bản theo giữa */
+}
+
+.banner-text h1 {
+    font-size: 36px; /* Kích thước tiêu đề */
+    margin-bottom: 10px; /* Khoảng cách giữa tiêu đề và đoạn mô tả */
+}
+
+.banner-text p {
+    font-size: 18px; /* Kích thước đoạn mô tả */
+    margin: 0; /* Loại bỏ margin mặc định */
+}

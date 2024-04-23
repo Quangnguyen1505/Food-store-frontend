@@ -102,9 +102,9 @@ export class CartService {
     this.http.get<any>( CART_URL, { headers }).subscribe(
       (data) => {
         let totalCount =0 , totalPrice = 0;
-        for (let index = 0; index < data?.metadata.cart_foods.length; index++) {
-          totalCount = totalCount + data?.metadata.cart_foods[index].quantity;
-          totalPrice = totalPrice + (data?.metadata.cart_foods[index].quantity * data.metadata?.cart_foods[index].price);
+        for (let index = 0; index < data?.metadata?.cart_foods.length; index++) {
+          totalCount = totalCount + data?.metadata?.cart_foods[index].quantity;
+          totalPrice = totalPrice + (data?.metadata?.cart_foods[index].quantity * data?.metadata?.cart_foods[index].price);
         }
         data.totalCount = totalCount;
         data.totalPrice = totalPrice;

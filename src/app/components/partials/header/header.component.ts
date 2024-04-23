@@ -1,5 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -11,7 +12,11 @@ import { UserService } from 'src/app/services/user.service';
 export class HeaderComponent {
   cartQuantity!: number;
   user!:any;
-  constructor(cartService: CartService, private userService: UserService, private router:Router){
+  constructor(
+    cartService: CartService, 
+    private userService: UserService, 
+    private router:Router, private toastrServices:ToastrService
+  ){
     cartService.cartObservable.subscribe((newCart) => {
       if(!newCart){
         this.cartQuantity = 0;
@@ -32,6 +37,16 @@ export class HeaderComponent {
   }
   get token(){
     return this.user.metadata.tokens.asscessToken;
+  }
+
+  getCheckoutId(){
+    return localStorage.getItem('checkoutId');
+  }
+
+  checkOrder(){
+    if(!this.getCheckoutId()){
+      this.toastrServices.error('Pls add some food to cart', 'Order failed');
+    }
   }
 
 }

@@ -5,6 +5,8 @@
     notFoundMessage = " No food found !!"
     resetLinkText = "Go To Homepage"
 ></app-not-found>
+<app-banner [checkTerm]="checkTerm"></app-banner>
+<app-title title="New foods" margin="1.5rem" *ngIf="!checkTerm"></app-title>
 <ul>
     <li *ngFor="let food of foods">
         <a routerLink="/food/{{food._id}}">
@@ -37,3 +39,5 @@
         </a>
     </li>
 </ul>
+
+<footer></footer>

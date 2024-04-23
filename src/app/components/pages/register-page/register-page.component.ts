@@ -21,6 +21,7 @@ export class RegisterPageComponent implements OnInit{
     this.registerForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(5)]],
       email: ['', [Validators.required, Validators.email]],
+      address: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(5)]],
       comfirmPassword: ['', Validators.required]
     }, {
@@ -39,7 +40,7 @@ export class RegisterPageComponent implements OnInit{
     this.isSubmitted = true;
     if(this.registerForm.invalid) return;
 
-    this.userService.register({name: this.fc.name.value ,email: this.fc.email.value, password: this.fc.password.value, confirmPassword: this.fc.comfirmPassword.value }).subscribe(()=>{
+    this.userService.register({name: this.fc.name.value ,email: this.fc.email.value, address: this.fc.address.value ,password: this.fc.password.value, confirmPassword: this.fc.comfirmPassword.value }).subscribe(()=>{
       this.router.navigateByUrl(this.returnURL);
     });
   }

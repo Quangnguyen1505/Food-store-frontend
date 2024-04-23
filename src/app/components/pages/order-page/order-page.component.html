@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="details">
+        <app-title title="Order"></app-title>
+        <div class="profile">
+            <div class="profile__item">
+                <div class="profile__item__title">Name: &nbsp;</div>
+                <div class="profile__item__value">{{user?.name}}</div>
+            </div>
+            <div class="profile__item">
+                <div class="profile__item__title">Address: &nbsp;</div>
+                <div class="profile__item__value">{{user?.address}}</div>
+            </div>
+        </div>
+        <order-items-list [order]="order" [totalPrice]="totalPrice"></order-items-list> 
+    </div>
+</div>
