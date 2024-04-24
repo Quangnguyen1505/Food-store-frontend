@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Cart } from '../shared/models/Cart';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { Food } from '../shared/models/food';
-import { CartItem } from '../shared/models/CartItem';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CART_ADD, CART_DELETE, CART_QUANTITY, CART_URL } from '../shared/constants/urls';
 
@@ -13,7 +11,6 @@ const USER_ID = "userId"
   providedIn: 'root'
 })
 export class CartService {
-  // private cart: Cart = this.getCartFromLocalStorage();
   private cartSubject = new BehaviorSubject<any>(this.getCart());
   public cartObservable: Observable<any>;
 
@@ -157,37 +154,4 @@ export class CartService {
       }
     );
   }
-
-  // changeQuantity(foodId: string, quantity: number): void {
-  //   let cartItem = this.cart.items.find(item => item.food._id === foodId);
-  //   if (cartItem) {
-  //     cartItem.quantity = quantity;
-  //     cartItem.price = quantity * cartItem.food.price;
-  //     this.setCartToLocalStorage();
-  //   }
-  // }
-
-  // clearCart(): void {
-  //   this.cart = new Cart();
-  //   this.setCartToLocalStorage();
-  // }
-
-  // getCartObservable(): Observable<Cart> {
-  //   return this.cartSubject.asObservable();
-  // }
-
-  // private setCartToLocalStorage(): void {
-  //   if (this.cart.items) {
-  //     this.cart.totalPrice = this.cart.items.reduce((prevSum, currentItem) => prevSum + currentItem.price, 0);
-  //     this.cart.totalCount = this.cart.items.reduce((prevSum, currentItem) => prevSum + currentItem.quantity, 0);
-  //     const cartJson = JSON.stringify(this.cart);
-  //     localStorage.setItem('Cart', cartJson);
-  //     this.cartSubject.next(this.cart);
-  //   }
-  // }
-
-  // private getCartFromLocalStorage(): Cart {
-  //   const cartJson = localStorage.getItem('Cart');
-  //   return cartJson ? JSON.parse(cartJson) : new Cart();
-  // }
 }

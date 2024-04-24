@@ -40,4 +40,7 @@
     </li>
 </ul>
 
+<pagination *ngIf="total>limit" tag="{{paramsTag}}"  [currentPage]= "currentPage" [limit]= "limit" [total]="total" (changePage)="changePage($event)"></pagination>
+
+
 <footer></footer>

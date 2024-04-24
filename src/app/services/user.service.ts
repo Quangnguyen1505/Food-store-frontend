@@ -31,13 +31,10 @@ export class UserService {
     return this.http.post<any>(USER_LOGIN, userLogin).pipe(
       tap({
         next: (user) => {
-          // const clientId = user.metadata.shop._id;
-          // const headers = new HttpHeaders().set('client-id', clientId);
           this.setUserToLocalStorage(user)
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.shop._id));
           this.getProfile();
           this.cartService.getCart();
-          // this.userSubject.next(user);
           this.toastrServices.success(
             `Welcome to Foodmine ${user.metadata.shop.name}!`,
             'Login Successful'
@@ -143,9 +140,6 @@ export class UserService {
       return;
     }
     const parseClientId = JSON.parse(clientId);
-    // const headers = new HttpHeaders()
-    // .set('authorization', `Bearer ${accessToken}`)
-    // .set('x-client-id', parseClientId);
     const headers = this.setHeaders(accessToken, parseClientId);
 
     this.http.get<any>( USER_PROFILE, { headers }).subscribe(

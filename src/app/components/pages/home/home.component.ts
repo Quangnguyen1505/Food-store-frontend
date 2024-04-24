@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FoodService } from 'src/app/services/food.service';
@@ -13,19 +13,17 @@ export class HomeComponent implements OnInit {
 
   foods:Food[] = [];
   checkTerm: boolean = false;
-
-  constructor( private foodServices:FoodService,  activatedRoute: ActivatedRoute){
-    // let foodsObservalbe:Observable<Food[]>;
+  currentPage: number = 1;
+  limit: number = 8;
+  total: number = 9;
+  paramsPay: number = 1;
+  paramsTag:any;
+  constructor( private foodServices:FoodService, private activatedRoute: ActivatedRoute, private route: ActivatedRoute){
     activatedRoute.params.subscribe((params) => {
-      // if(params.searchTerm)
-      // foodsObservalbe = this.foodServices.getAllFoodsBySearchTerm(params.searchTerm);
-      // else if(params.tag)
-      // foodsObservalbe = this.foodServices.getAllFoodsByTag(params.tag);
-      // else
       if(params.searchTerm){
         this.foodServices.getAllFoodsBySearchTerm(params.searchTerm).subscribe(
           response => {
-            this.foods = response.metadata; // Lấy dữ liệu từ trường metadata
+            this.foods = response.metadata; 
             this.checkTerm = true;
           },
           error => {
@@ -34,35 +32,57 @@ export class HomeComponent implements OnInit {
         );
       }
       else if(params.tag){
-        this.foodServices.getAllFoodsByTag(params.tag).subscribe(
-          response => {
-            this.foods = response.metadata; // Lấy dữ liệu từ trường metadata
-            this.checkTerm = true;
-          },
-          error => {
-            console.error('Lỗi khi lấy dữ liệu thức ăn:', error);
+        this.activatedRoute.queryParams.subscribe(queryParams => {
+          let page: number;
+          const pageQuery = queryParams['page'];
+          this.paramsTag = "/tag/"+params.tag;
+          if (pageQuery) {
+            page = pageQuery;
+          } else {
+            page = 1;
           }
-        );
+          
+          this.foodServices.getAllFoodsByTag(params.tag, page).subscribe(
+            response => {
+              if(params.tag == "All"){
+                this.foods = response.metadata.foods; 
+                this.total = response.metadata.totalCount;  
+              }else{
+                this.foods = response.metadata.foundFood;     
+                this.total = response.metadata.foundFood.length;  
+              }        
+              this.checkTerm = true;
+            },
+            error => {
+              console.error('Error Foods:', error);
+            }
+          );
+        });
       }
       else{
-        this.foodServices.getAll().subscribe(
-          response => {
-            this.foods = response.metadata; // Lấy dữ liệu từ trường metadata
-            
-          },
-          error => {
-            console.error('Lỗi khi lấy dữ liệu thức ăn:', error);
-          }
-        );
+        this.route.queryParams.subscribe(params => {
+          const page = params['page'];
+          this.paramsTag = '';
+          this.foodServices.getAll(page).subscribe(
+            response => {
+              this.foods = response.metadata.foods; 
+              this.total = response.metadata.totalCount;
+            },
+            error => {
+              console.error('Error Foods:', error);
+            }
+          );
+        });
+        
       }
-
-      // foodsObservalbe.subscribe((serverFoods) => {
-      //   this.foods = serverFoods;
-      // })
     })
     
   }
   ngOnInit(): void {
     
+  }
+
+  changePage(page: number): void {
+    this.currentPage = page;
   }
 }

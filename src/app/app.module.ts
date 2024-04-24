@@ -31,6 +31,7 @@ import { ResetPasswordComponent } from './components/pages/reset-password/reset-
 import { OrderPageComponent } from './components/pages/order-page/order-page.component';
 import { FooterComponent } from './components/partials/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PaginationComponent } from './components/partials/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     ForgotPassordComponent,
     ResetPasswordComponent,
     OrderPageComponent,
-    FooterComponent
+    FooterComponent,
+    PaginationComponent
   ],
   imports: [
     BrowserModule,
