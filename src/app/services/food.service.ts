@@ -10,7 +10,7 @@ export class FoodService {
 
   constructor( private http:HttpClient) { }
 
-  getAll(page: any): Observable<any>{
+  getAll(page: any): Observable<any>{    
     return this.http.get<any>(FOOD_URL +"?page=" + page);
   }
 

@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   checkTerm: boolean = false;
   currentPage: number = 1;
   limit: number = 8;
-  total: number = 9;
+  total: number = 0;
   paramsPay: number = 1;
   paramsTag:any;
   constructor( private foodServices:FoodService, private activatedRoute: ActivatedRoute, private route: ActivatedRoute){
@@ -62,6 +62,8 @@ export class HomeComponent implements OnInit {
       else{
         this.route.queryParams.subscribe(params => {
           const page = params['page'];
+          console.log("page: ", page);
+          
           this.paramsTag = '';
           this.foodServices.getAll(page).subscribe(
             response => {

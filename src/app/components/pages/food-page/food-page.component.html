@@ -42,3 +42,6 @@
         <button (click)="addToCart()">Add to Cart</button> 
     </div>
 </div>
+
+<app-title title="Suggest Food By {{tag}}" margin="1rem"></app-title>
+<list-item-food [foods]="suggestedFoods"></list-item-food>

@@ -11,13 +11,21 @@ import { Food } from 'src/app/shared/models/food';
 })
 export default class FoodPageComponent {
   food!: Food;
+  tag!: any;
+  suggestedFoods!: any;
   constructor(activatedRoute: ActivatedRoute, foodServices: FoodService,
    private cartServices:CartService, private router: Router)
    {
     activatedRoute.params.subscribe((params) => {
-      if(params.id){ foodServices.getFoodById(params.id).subscribe(respone => {
-        this.food = respone.metadata;
-      })
+      if(params.id){ 
+        foodServices.getFoodById(params.id).subscribe(respone => {
+          this.food = respone.metadata;
+          console.log("this is food page", this.food);
+          foodServices.getAllFoodsByTag(respone.metadata.tags[0], 1).subscribe((response) => {
+            this.suggestedFoods = response.metadata.foundFood;  
+            this.tag = respone.metadata.tags[0];
+          })
+        })
       }
     })
   }

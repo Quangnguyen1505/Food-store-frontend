@@ -18,11 +18,10 @@ export class HeaderComponent {
     private router:Router, private toastrServices:ToastrService
   ){
     cartService.cartObservable.subscribe((newCart) => {
-      if(!newCart){
-        this.cartQuantity = 0;
-      }else{
-        this.cartQuantity = newCart?.metadata.cart_foods.length;
-      }
+        this.cartQuantity = newCart?.metadata?.cart_foods.length;
+        if(!this.cartQuantity){
+          this.cartQuantity = 0;
+        }
     })
 
     userService.userObservable.subscribe((newUser)=>{
@@ -39,14 +38,14 @@ export class HeaderComponent {
     return this.user.metadata.tokens.asscessToken;
   }
 
-  getCheckoutId(){
-    return localStorage.getItem('checkoutId');
-  }
+  // getCheckoutId(){
+  //   return localStorage.getItem('checkoutId');
+  // }
 
-  checkOrder(){
-    if(!this.getCheckoutId()){
-      this.toastrServices.error('Pls add some food to cart', 'Order failed');
-    }
-  }
+  // checkOrder(){
+  //   if(!this.getCheckoutId()){
+  //     this.toastrServices.error('Pls add some food to cart', 'Order failed');
+  //   }
+  // }
 
 }

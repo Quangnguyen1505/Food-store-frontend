@@ -19,9 +19,11 @@ const routes: Routes = [
   {path: 'cart-page', component: CartPageComponent},
   {path: 'login', component: LoginPageComponent},
   {path: 'register', component: RegisterPageComponent},
-  {path: 'profile', component: ProfileComponent},
+  {path: 'profile', component: ProfileComponent,
+    loadChildren: () => import('./components/pages/profile/profile-routing.module').then(m => m.ProfileRoutingModule)
+  },
   {path: 'checkout', component: CheckoutPageComponent},
-  {path: 'order/:id', component: OrderPageComponent},
+  {path: 'order', component: OrderPageComponent},
   {path: 'forgot-password', component: ForgotPassordComponent},
   {path: 'reset-password/:resetToken', component: ResetPasswordComponent}
 ];

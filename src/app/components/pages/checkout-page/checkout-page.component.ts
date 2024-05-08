@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
 import { UserService } from 'src/app/services/user.service';
 
@@ -51,12 +50,13 @@ export class CheckoutPageComponent implements OnInit{
     return this.checkoutForm.controls;
   }
 
-  createOrder(order: any, user_address: string){
+  createOrder(order: any){
     if(this.checkoutForm.invalid){
       this.toastrService.warning('Creating Order', 'Invalid input'); 
       return;
     }
-
-    this.checkoutService.orderByUser(order, user_address);
+    console.log("address: ", this.fc.address.value);
+    
+    this.checkoutService.orderByUser(order, this.fc.address.value);
   }
 }

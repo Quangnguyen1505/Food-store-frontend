@@ -32,6 +32,10 @@ import { OrderPageComponent } from './components/pages/order-page/order-page.com
 import { FooterComponent } from './components/partials/footer/footer.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PaginationComponent } from './components/partials/pagination/pagination.component';
+import { ListItemFoodComponent } from './components/partials/list-item-food/list-item-food.component';
+import { StateComponent } from './components/partials/state/state.component';
+import { ManagerAccountComponent } from './components/pages/profile/manager-account/manager-account.component';
+import { DiscountComponent } from './components/pages/profile/discount/discount.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +63,11 @@ import { PaginationComponent } from './components/partials/pagination/pagination
     ResetPasswordComponent,
     OrderPageComponent,
     FooterComponent,
-    PaginationComponent
+    PaginationComponent,
+    ListItemFoodComponent,
+    StateComponent,
+    ManagerAccountComponent,
+    DiscountComponent
   ],
   imports: [
     BrowserModule,

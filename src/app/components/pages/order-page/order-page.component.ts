@@ -12,30 +12,40 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class OrderPageComponent {
   order: any;
-  user: any;
-  totalPrice!: number;
-  paramsId!: any;
   returnURL = '';
+  limit: number = 4;
+  currentPage: number = 1;
+  total: any;
+  paramsTag: any;
   constructor( 
     private checkoutService: CheckoutService,
-    private formBuilder: FormBuilder,
-    private userService: UserService,
-    private activatedRoute:ActivatedRoute
+    private route: ActivatedRoute,
+    private activatedRoute: ActivatedRoute
   ) {
     activatedRoute.params.subscribe((params) => {
-      if(params.id){
-        this.paramsId = params.id;
-        this.checkoutService.getListOrder(this.paramsId);
-        this.checkoutService.checkoutObservable.subscribe((checkout) => {
-          for (let i = 0; i < checkout?.metadata.length; i++) {
-              this.order = checkout?.metadata[i].order_products;
-              this.user = checkout?.metadata[i].order_userId;
-              this.totalPrice = checkout?.metadata[i].order_checkout;
-          }
+      this.route.queryParams.subscribe(params => {
+        const page = params['page'];
+        this.paramsTag = "/order";
+        console.log("page: ", {page, params: this.paramsTag});
+        
+        this.checkoutService.getListOrder(page).subscribe((data) => {
+          this.order = data?.metadata.orders;
+          this.total = data?.metadata.totalCountOrder;
+          console.log("order: ", this.total);
         })
-      }
-    });
-
+      });
+    })
+        // this.checkoutService.checkoutObservable.subscribe((checkout) => {
+        //   this.order = checkout?.metadata.orders;
+        //   this.total = checkout?.metadata.totalCountOrder;
+        //   console.log("order: ", this.total);
+          
+        // })
+  }
+  
+  changePage(page: number): void {
+    this.currentPage = page;
+    console.log(this.currentPage);
     
   }
     

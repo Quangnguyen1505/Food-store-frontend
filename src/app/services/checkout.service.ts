@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { CART_URL, ORDER_BY_USER, ORDER_LIST, ORDER_REVIEW } from '../shared/constants/urls';
+import { ORDER_BY_USER, ORDER_LIST, ORDER_REVIEW } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 
@@ -9,7 +9,6 @@ const USER_KEY = "accessToken"
 const USER_ID = "userId"
 const CART_ID = "cartId"
 const CHECKOUT_DATA = "checkoutData"
-const CHECKOUT_ID = "checkoutId"
 @Injectable({
   providedIn: 'root'
 })
@@ -97,15 +96,13 @@ export class CheckoutService {
 
     this.http.post<any>(ORDER_BY_USER, data, { headers }).subscribe(
       (data) => {
-        localStorage.setItem(CHECKOUT_ID, data?.metadata._id)
         this.checkoutSubject.next(data)
         this.toastrServices.success(
           `Order successfuly!`
         )
         localStorage.removeItem(CART_ID);
         localStorage.removeItem(CHECKOUT_DATA);
-        // window.location.reload();
-        this.router.navigateByUrl('/order/'+data?.metadata._id);
+        this.router.navigateByUrl('/order');
       },
       (error) => {
         console.error('Error fetching user profile:', error);
@@ -113,25 +110,19 @@ export class CheckoutService {
     );
   }
 
-  getListOrder(paramsId: any){
+  getListOrder( page: any): Observable<any>{
     const accessToken = this.getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
-    //const checkoutId = localStorage.getItem(CHECKOUT_ID);
+    console.log(page);
+    
     if ( !accessToken || !clientId ) {
       console.log("error token or clientId::");
-      return;
+      return new Observable<any>();
     }
     const parseClientId = JSON.parse(clientId);
     const headers = this.setHeaders(accessToken, parseClientId);
 
-    this.http.get<any>( ORDER_LIST + paramsId, { headers }).subscribe(
-      (data) => {
-        this.checkoutSubject.next(data);
-      },
-      (error) => {
-        console.error('Error fetching user profile:', error);
-      }
-    );
+    return this.http.get<any>( ORDER_LIST +"?page=" + page, { headers });
   }
 
   private getUserFromLocalStorage(): any {

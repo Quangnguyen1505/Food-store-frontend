@@ -1,4 +1,9 @@
-<div class="container">
+<app-not-found
+    [visible]="!order "
+    notFoundMessage = "Checkout Review Is Empty !!"
+    resetLinkText = "Go To Homepage"
+></app-not-found>
+<div class="container" *ngIf="order">
     <div class="content">
         <app-title title="Order form" margin="1.6rem"></app-title>
         <form [formGroup]="checkoutForm">
@@ -9,7 +14,7 @@
     </div>
     <div class="buttons-container">
         <div class="buttons">
-            <button (click)="createOrder(order, user_address)"> Go To Payment </button>
+            <button (click)="createOrder(order)"> Go To Payment </button>
         </div>
     </div>
 </div>

@@ -1,16 +1,27 @@
-<div class="container">
+<app-not-found
+    [visible]="!order "
+    notFoundMessage = "order Page Is Empty !!"
+    resetLinkText = "Go To Homepage"
+></app-not-found>
+<app-title *ngIf="order" title="Order"></app-title>
+<div class="container" *ngFor="let item of order">
     <div class="details">
-        <app-title title="Order"></app-title>
         <div class="profile">
             <div class="profile__item">
                 <div class="profile__item__title">Name: &nbsp;</div>
-                <div class="profile__item__value">{{user?.name}}</div>
+                <div class="profile__item__value">{{item.order_userId?.name}}</div>
             </div>
             <div class="profile__item">
                 <div class="profile__item__title">Address: &nbsp;</div>
-                <div class="profile__item__value">{{user?.address}}</div>
+                <div class="profile__item__value">{{item.order_shipping}}</div>
+            </div>
+            <div class="profile__item_name">
+                <div class="profile__item__title">Id: &nbsp; #1223</div>
             </div>
         </div>
-        <order-items-list [order]="order" [totalPrice]="totalPrice"></order-items-list> 
+        <order-items-list [order]="item.order_products" [totalPrice]="item.order_checkout"></order-items-list> 
     </div>
 </div>
+
+
+<pagination *ngIf="order" [currentPage]= "currentPage" tag="{{paramsTag}}" [limit]= "limit" [total]="total" (changePage)="changePage($event)"></pagination>

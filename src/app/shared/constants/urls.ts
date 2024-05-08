@@ -21,4 +21,6 @@ export const CART_DELETE = CART_URL + '/delete'
 
 export const ORDER_REVIEW = BASE_URL + '/v1/api/checkout'
 export const ORDER_BY_USER = ORDER_REVIEW + '/create'
-export const ORDER_LIST = ORDER_REVIEW + '/listOrder/'
+export const ORDER_LIST = ORDER_REVIEW + '/listOrder'
+
+export const DISCOUNT_URL = BASE_URL + '/v1/api/discount'

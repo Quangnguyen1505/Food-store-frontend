@@ -3,24 +3,38 @@
         <a routerLink="/">🔙</a>
     </span>
 </div>
-<app-title title="Profile" margin="1.6rem"></app-title>
-<div class="container">
-    <div class="details">
-        <div class="profile">
-            <span>Full name: {{user.name}}</span>
-        </div>
 
-        <div class="profile">
-            <span>Email: {{user.email}}</span>
-        </div>
+<div class="row">
+    <div class="column left" >
+      <h2>Account management</h2>
+      <ul>
+        <li routerLink="/profile"><fa-icon [icon]="faUser"></fa-icon>Profile {{user.name}}</li>
+        <li routerLink="/order"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon>Order</li>
+        <li routerLink="discounts"><fa-icon [icon]="faTicket"></fa-icon>Discount system</li>
+        <li><fa-icon [icon]="faBell"></fa-icon>Notification</li>
+      </ul>
+    </div>
+    <div class="column right" >
+        <!-- <h2>Profile</h2>
+        <div class="container">
+            <div class="details">
+                <div class="profile">
+                    <span>Full name: {{user.name}}</span>
+                </div>
         
-        <div class="profile">
-            <span>Address: {{user.address}}</span>
-        </div>
-
-        <div class="profile">
-            <span>Status: {{user.status}}</span>
-        </div>
-
+                <div class="profile">
+                    <span>Email: {{user.email}}</span>
+                </div>
+                
+                <div class="profile">
+                    <span>Address: {{user.address}}</span>
+                </div>
+        
+                <div class="profile">
+                    <span>Status: {{user.status}}</span>
+                </div>
+            </div>
+        </div> -->
+        <router-outlet></router-outlet>
     </div>
 </div>

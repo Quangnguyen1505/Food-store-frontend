@@ -1,0 +1,28 @@
+<ul>
+    <li *ngFor="let food of foods?.slice(0, 3)">
+        <a routerLink="/food/{{food._id}}">
+            <img [src]="food.imageUrl" [alt]="food.name">
+            <div class="content">
+                <div class="name">
+                    {{food.name}}
+                </div>
+                <span class="favorive {{food.favorite? '': 'not'}} " >
+                    ❤
+                </span>
+                <div class="product-item-footer">
+                    <div class="origins">
+                        <span *ngFor="let origin of food.tags">
+                            {{origin}}
+                        </span>
+                    </div>
+                </div>
+
+                <div class="price">
+                    <span>
+                        {{food.price | currency}}
+                    </span>
+                </div>
+            </div>
+        </a>
+    </li>
+</ul>

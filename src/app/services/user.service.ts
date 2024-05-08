@@ -147,7 +147,6 @@ export class UserService {
         this.userSubject.next(data);
       },
       (error) => {
-        // Xử lý lỗi nếu có
         console.error('Error fetching user profile:', error);
       }
     );

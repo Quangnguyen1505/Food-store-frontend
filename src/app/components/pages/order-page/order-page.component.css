@@ -5,6 +5,9 @@
 
 .details{
     width: 40rem;
+    border: 1px solid #F08080;
+    border-radius: 5px;
+    margin-bottom: 2rem;
 }
 
 .profile{
@@ -18,4 +21,14 @@
     display: flex;
     justify-content: center;
     margin: 2rem;
+}
+
+app-title{
+    display: flex;
+    justify-content: center;
+}
+
+.profile__item_name{
+    position: absolute;
+    left: 360px;
 }
