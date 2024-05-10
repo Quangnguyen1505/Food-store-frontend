@@ -20,7 +20,8 @@ const routes: Routes = [
   {path: 'login', component: LoginPageComponent},
   {path: 'register', component: RegisterPageComponent},
   {path: 'profile', component: ProfileComponent,
-    loadChildren: () => import('./components/pages/profile/profile-routing.module').then(m => m.ProfileRoutingModule)
+    loadChildren: () => import('./components/pages/profile/profile-routing.module')
+    .then(m => m.ProfileRoutingModule)
   },
   {path: 'checkout', component: CheckoutPageComponent},
   {path: 'order', component: OrderPageComponent},

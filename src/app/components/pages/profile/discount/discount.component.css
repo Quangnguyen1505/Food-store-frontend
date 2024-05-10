@@ -1,0 +1,37 @@
+ul{
+    /* justify-content: center; */
+    align-items: center;
+    flex-wrap: wrap;
+    list-style-type: none;
+    padding: 0;
+    margin-left: 5rem;
+}
+
+li img{
+    object-fit: cover;
+    height: 9.5rem;
+    opacity: 1;
+}
+
+li img:hover{
+    object-fit: cover;
+    height: 9.5rem;
+    opacity: 0.8;
+}
+
+li{
+    display: flex;
+    padding: 1rem;
+    margin: 0.5rem;
+    border: 1px solid black;
+    border-radius: 1rem;
+    width: 40rem;
+}
+
+.content{
+    margin-top: 0.3rem ;
+    padding: 1rem;
+    position: relative;
+    height: 7rem;
+    margin-left: 2rem;
+}

@@ -24,4 +24,4 @@
 </div>
 
 
-<pagination *ngIf="order" [currentPage]= "currentPage" tag="{{paramsTag}}" [limit]= "limit" [total]="total" (changePage)="changePage($event)"></pagination>
+<pagination *ngIf="order>limit" [currentPage]= "currentPage" tag="{{paramsTag}}" [limit]= "limit" [total]="total" (changePage)="changePage($event)"></pagination>

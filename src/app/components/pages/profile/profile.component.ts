@@ -16,7 +16,7 @@ export class ProfileComponent {
   faBell = faBell;
   faUser = faUser;
   constructor( private userService: UserService){
-    userService.userObservable.subscribe((newUser)=>{
+    this.userService.userObservable.subscribe((newUser)=>{
       console.log("user", newUser);
       
       this.user = newUser.metadata;

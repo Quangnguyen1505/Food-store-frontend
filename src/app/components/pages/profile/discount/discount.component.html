@@ -1,6 +1,29 @@
-<ul *ngFor="let item of discounts" >
-    <li>name: {{item?.discount_name}}</li>
-    <li>code: {{item?.discount_code}}</li>
-    <li>quantity: {{item?.discount_count}}</li>
-</ul>
+<!-- <div class="container">
+    <div class="details" *ngFor="let item of discounts">
+            <img src="../../../../../assets/discount.jpg">
+            <p>name: {{item?.discount_name}}</p>
+            <p>code: {{item?.discount_code}}</p>
+            <p>quantity: {{item?.discount_count}}</p>
+            <p>value: {{item?.discount_value}}</p>
+    </div>
+</div> -->
 
+<ul>
+    <li *ngFor="let item of discounts">
+        <img src="../../../../../assets/discount.jpg">
+        <div class="content">
+            <div class="name">
+                name: {{item?.discount_name}}
+            </div>
+            <div class="code">
+                code: {{item?.discount_code}}
+            </div>
+            <div class="quantity">
+                quantity: {{item?.discount_count}}
+            </div>
+            <div class="value">
+                value: {{item?.discount_value}}
+            </div>
+        </div>
+    </li>
+</ul>

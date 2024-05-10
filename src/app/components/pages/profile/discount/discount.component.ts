@@ -10,7 +10,6 @@ export class DiscountComponent {
   discounts:any;
   constructor( private discountService: DiscountsService ){
     this.discountService.getListDiscount().subscribe((data) => {
-      console.log("discount: ", data);
       this.discounts = data?.metadata
     })
   }
