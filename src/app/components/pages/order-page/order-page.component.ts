@@ -31,7 +31,6 @@ export class OrderPageComponent {
         this.checkoutService.getListOrder(page).subscribe((data) => {
           this.order = data?.metadata.orders;
           this.total = data?.metadata.totalCountOrder;
-          console.log("order: ", this.total);
         })
       });
     })

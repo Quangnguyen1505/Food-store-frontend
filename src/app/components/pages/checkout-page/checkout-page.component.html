@@ -1,20 +1,23 @@
-<app-not-found
-    [visible]="!order "
-    notFoundMessage = "Checkout Review Is Empty !!"
-    resetLinkText = "Go To Homepage"
-></app-not-found>
+<app-not-found [visible]="!order " notFoundMessage="Checkout Review Is Empty !!"
+    resetLinkText="Go To Homepage"></app-not-found>
 <div class="container" *ngIf="order">
     <div class="content">
         <app-title title="Order form" margin="1.6rem"></app-title>
         <form [formGroup]="checkoutForm">
             <text-input [control]="fc.name" label="Name"></text-input>
             <text-input [control]="fc.address" label="Address"></text-input>
+            <label for="standard-select">Discount Select</label>
+            <div class="select">
+                <select #optionSelect (change)="updateDiscount(optionSelect.value)" id="standard-select" formControlName="discount">
+                    <option *ngFor="let item of discounts" value="{{item.discount_code}}">{{item.discount_name}}({{item.discount_value}}%) - code: {{item.discount_code}}</option>
+                </select>
+            </div>
         </form>
         <order-items-list [order]="order" [totalPrice]="totalPrice"></order-items-list>
     </div>
     <div class="buttons-container">
         <div class="buttons">
-            <button (click)="createOrder(order)"> Go To Payment </button>
+            <button (click)="createOrder(order, optionSelect.value)"> Go To Payment </button>
         </div>
     </div>
 </div>

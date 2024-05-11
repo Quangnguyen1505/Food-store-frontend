@@ -66,7 +66,48 @@ export class CheckoutService {
     );
   }
 
-  orderByUser(order: any, user_address: string){
+  addDiscount(cartItem: any, discount: any){
+    const accessToken = this.getUserFromLocalStorage();
+    const clientId = localStorage.getItem(USER_ID);
+    if(!accessToken || !clientId) {
+      console.log("error AT & CLID");
+      return;
+    }
+
+    const parseClientId = JSON.parse(clientId);
+    const headers = this.setHeaders(accessToken, parseClientId);
+    
+    const foodsOrder = cartItem.cart_foods.map((item: any) => ({
+      foodId: item.foodId,
+      price: item.price,
+      quantity: item.quantity,
+      img: item.img
+    }));
+
+    
+
+    const data = {
+      userId: cartItem.cart_userId,
+      cartId: cartItem._id,
+      discount_code: discount,
+      foods_order: foodsOrder
+    }
+
+    this.http.post<any>(ORDER_REVIEW, data, { headers }).subscribe(
+      (data) => {
+        localStorage.setItem(CART_ID, JSON.stringify(cartItem._id));
+        this.saveCheckoutData(data);
+        this.checkoutSubject.next(data);
+      },
+      (error) => {
+        console.error('Error fetching user profile:', error);
+      }
+    );
+  }
+
+  orderByUser(order: any, discountCode = null, user_address: string){
+    console.log("kkaka", discountCode);
+    
     const accessToken = this.getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     const cartId = localStorage.getItem(CART_ID);
@@ -91,6 +132,7 @@ export class CheckoutService {
       userId: parseClientId,
       cartId: parseCartId,
       user_address,
+      discountCode,
       foods_order: foodsOrder
     }
 
