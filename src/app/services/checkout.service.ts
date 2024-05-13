@@ -28,45 +28,7 @@ export class CheckoutService {
     localStorage.setItem(CHECKOUT_DATA, JSON.stringify(data));
   }
 
-  checkOutReview(cartItem: any){
-    const accessToken = this.getUserFromLocalStorage();
-    const clientId = localStorage.getItem(USER_ID);
-    if(!accessToken || !clientId) {
-      console.log("error AT & CLID");
-      return;
-    }
-
-    const parseClientId = JSON.parse(clientId);
-    const headers = this.setHeaders(accessToken, parseClientId);
-    
-    const foodsOrder = cartItem.cart_foods.map((item: any) => ({
-      foodId: item.foodId,
-      price: item.price,
-      quantity: item.quantity,
-      img: item.img
-    }));
-
-    
-
-    const data = {
-      userId: cartItem.cart_userId,
-      cartId: cartItem._id,
-      foods_order: foodsOrder
-    }
-
-    this.http.post<any>(ORDER_REVIEW, data, { headers }).subscribe(
-      (data) => {
-        localStorage.setItem(CART_ID, JSON.stringify(cartItem._id));
-        this.saveCheckoutData(data);
-        this.checkoutSubject.next(data)
-      },
-      (error) => {
-        console.error('Error fetching user profile:', error);
-      }
-    );
-  }
-
-  addDiscount(cartItem: any, discount: any){
+  checkOutReview(cartItem: any, discount = null){
     const accessToken = this.getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     if(!accessToken || !clientId) {

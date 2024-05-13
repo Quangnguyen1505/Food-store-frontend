@@ -80,9 +80,6 @@ export class CheckoutPageComponent implements OnInit{
   }
 
   updateDiscount(optinvalue: any){
-    console.log("optinvalue: ", optinvalue);
-    console.log("checkoutReview: ", this.checkoutReview);
-    
-    this.checkoutService.addDiscount(this.cart?.metadata, optinvalue);
+    this.checkoutService.checkOutReview(this.cart?.metadata, optinvalue);
   }
 }
