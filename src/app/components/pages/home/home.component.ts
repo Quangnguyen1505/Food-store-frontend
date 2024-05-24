@@ -61,9 +61,10 @@ export class HomeComponent implements OnInit {
       }
       else{
         this.route.queryParams.subscribe(params => {
-          const page = params['page'];
+          let page;
+          page = params['page'];
           console.log("page: ", page);
-          
+          if(page == undefined) page = 1; 
           this.paramsTag = '';
           this.foodServices.getAll(page).subscribe(
             response => {
