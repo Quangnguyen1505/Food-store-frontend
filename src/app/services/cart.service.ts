@@ -4,8 +4,8 @@ import { Food } from '../shared/models/food';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CART_ADD, CART_DELETE, CART_QUANTITY, CART_URL } from '../shared/constants/urls';
 
-const USER_KEY = "accessToken"
-const USER_ID = "userId"
+const USER_KEY = "accessToken";
+const USER_ID = "userId";
 
 @Injectable({
   providedIn: 'root'

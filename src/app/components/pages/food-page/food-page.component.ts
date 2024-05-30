@@ -3,6 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { FoodService } from 'src/app/services/food.service';
 import { Food } from 'src/app/shared/models/food';
+import {
+  faHeart
+} from '@fortawesome/free-solid-svg-icons'
 
 @Component({
   selector: 'app-food-page',
@@ -10,10 +13,11 @@ import { Food } from 'src/app/shared/models/food';
   styleUrls: ['./food-page.component.css']
 })
 export default class FoodPageComponent {
+  faHeart = faHeart;
   food!: Food;
   tag!: any;
   suggestedFoods!: any;
-  constructor(activatedRoute: ActivatedRoute, foodServices: FoodService,
+  constructor(activatedRoute: ActivatedRoute, private foodServices: FoodService,
    private cartServices:CartService, private router: Router)
    {
     activatedRoute.params.subscribe((params) => {
@@ -30,8 +34,14 @@ export default class FoodPageComponent {
     })
   }
 
-   addToCart(){
-     this.cartServices.addToCart(this.food);
-     this.router.navigateByUrl('/cart-page');
+  addToCart(){
+    this.cartServices.addToCart(this.food);
+    this.router.navigateByUrl('/cart-page');
   }
+
+  changeFavorite(foodId: any){
+    console.log("change favorite click");
+    
+    this.foodServices.updateFavorite(foodId);
+  };
 }

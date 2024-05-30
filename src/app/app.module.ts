@@ -36,6 +36,8 @@ import { ListItemFoodComponent } from './components/partials/list-item-food/list
 import { StateComponent } from './components/partials/state/state.component';
 import { ManagerAccountComponent } from './components/pages/profile/manager-account/manager-account.component';
 import { DiscountComponent } from './components/pages/profile/discount/discount.component';
+import { HomeAdminComponent } from './admin/components/home-admin/home-admin.component';
+import { MaterialModule } from './admin/material.module';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { DiscountComponent } from './components/pages/profile/discount/discount.
     ListItemFoodComponent,
     StateComponent,
     ManagerAccountComponent,
-    DiscountComponent
+    DiscountComponent,
+    HomeAdminComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,8 @@ import { DiscountComponent } from './components/pages/profile/discount/discount.
       positionClass: 'toast-bottom-right',
       newestOnTop: false
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    //MaterialModule // admin
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}

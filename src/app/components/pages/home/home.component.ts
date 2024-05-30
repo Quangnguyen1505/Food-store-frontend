@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
 import { FoodService } from 'src/app/services/food.service';
 import { Food } from 'src/app/shared/models/food';
 
@@ -9,7 +8,7 @@ import { Food } from 'src/app/shared/models/food';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent {
 
   foods:Food[] = [];
   checkTerm: boolean = false;
@@ -69,6 +68,8 @@ export class HomeComponent implements OnInit {
           this.foodServices.getAll(page).subscribe(
             response => {
               this.foods = response.metadata.foods; 
+              console.log("foods",this.foods);
+              
               this.total = response.metadata.totalCount;
             },
             error => {
@@ -81,11 +82,9 @@ export class HomeComponent implements OnInit {
     })
     
   }
-  ngOnInit(): void {
-    
-  }
 
   changePage(page: number): void {
     this.currentPage = page;
   }
+
 }

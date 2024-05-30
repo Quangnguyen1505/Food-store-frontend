@@ -10,6 +10,7 @@ import { CheckoutPageComponent } from './components/pages/checkout-page/checkout
 import { ForgotPassordComponent } from './components/pages/forgot-passord/forgot-passord.component';
 import { ResetPasswordComponent } from './components/pages/reset-password/reset-password.component';
 import { OrderPageComponent } from './components/pages/order-page/order-page.component';
+import { HomeAdminComponent } from './admin/components/home-admin/home-admin.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -26,7 +27,9 @@ const routes: Routes = [
   {path: 'checkout', component: CheckoutPageComponent},
   {path: 'order', component: OrderPageComponent},
   {path: 'forgot-password', component: ForgotPassordComponent},
-  {path: 'reset-password/:resetToken', component: ResetPasswordComponent}
+  {path: 'reset-password/:resetToken', component: ResetPasswordComponent},
+  {path: 'home/admin', component: HomeAdminComponent},
+  //{path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
 ];
 
 @NgModule({
