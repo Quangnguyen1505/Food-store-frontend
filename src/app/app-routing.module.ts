@@ -26,7 +26,7 @@ const routes: Routes = [
   {path: 'checkout', component: CheckoutPageComponent},
   {path: 'order', component: OrderPageComponent},
   {path: 'forgot-password', component: ForgotPassordComponent},
-  {path: 'reset-password/:resetToken', component: ResetPasswordComponent}
+  {path: 'reset-password/:resetToken', component: ResetPasswordComponent},
 ];
 
 @NgModule({

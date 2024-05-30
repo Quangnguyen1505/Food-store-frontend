@@ -18,12 +18,12 @@ export class HomeComponent implements OnInit {
   total: number = 0;
   paramsPay: number = 1;
   paramsTag:any;
-  constructor( private foodServices:FoodService, private activatedRoute: ActivatedRoute, private route: ActivatedRoute){
+  constructor( private foodServices:FoodService, private activatedRoute: ActivatedRoute ){
     activatedRoute.params.subscribe((params) => {
       if(params.searchTerm){
         this.foodServices.getAllFoodsBySearchTerm(params.searchTerm).subscribe(
           response => {
-            this.foods = response.metadata; 
+            this.foods = response?.metadata.food; 
             this.checkTerm = true;
           },
           error => {
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
         });
       }
       else{
-        this.route.queryParams.subscribe(params => {
+        this.activatedRoute.queryParams.subscribe(params => {
           let page;
           page = params['page'];
           console.log("page: ", page);

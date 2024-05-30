@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './components/partials/header/header.component';
@@ -36,6 +36,7 @@ import { ListItemFoodComponent } from './components/partials/list-item-food/list
 import { StateComponent } from './components/partials/state/state.component';
 import { ManagerAccountComponent } from './components/pages/profile/manager-account/manager-account.component';
 import { DiscountComponent } from './components/pages/profile/discount/discount.component';
+import { AdminModule } from './admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -80,7 +81,8 @@ import { DiscountComponent } from './components/pages/profile/discount/discount.
       positionClass: 'toast-bottom-right',
       newestOnTop: false
     }),
-    FontAwesomeModule
+    FontAwesomeModule,
+    AdminModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}

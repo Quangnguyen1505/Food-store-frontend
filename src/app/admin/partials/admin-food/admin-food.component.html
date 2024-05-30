@@ -1,0 +1,51 @@
+
+<table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="id">
+        <th mat-sort-header mat-header-cell *matHeaderCellDef> Id</th>
+        <td mat-cell *matCellDef="let element">{{element._id}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Name</th>
+            <td mat-cell *matCellDef="let element">{{element.name}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Price</th>
+            <td mat-cell *matCellDef="let element">{{element.price}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="tag">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Tag</th>
+            <td mat-cell *matCellDef="let element">{{element.tags}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="imageUrl">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> Image</th>
+            <td mat-cell *matCellDef="let element">{{element.imageUrl}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="cookTime">
+            <th mat-sort-header mat-header-cell *matHeaderCellDef> cookTime</th>
+            <td mat-cell *matCellDef="let element">{{element.cookTime}}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef> Action</th>
+            <td mat-cell *matCellDef="let element">
+
+                <button mat-raised-button color="primary">Edit</button>
+                <button mat-raised-button color="warn">Delete</button>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+
+</table>
+<br>
+<mat-card-footer>
+    <mat-paginator [length]="totocalCount" [pageSizeOptions]="[1,2,3]" showFirstLastButtons (page)="onPageChange($event)">></mat-paginator>
+</mat-card-footer>
