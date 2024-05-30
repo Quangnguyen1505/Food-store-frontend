@@ -1,0 +1,42 @@
+<mat-drawer-container autosize>
+    <mat-drawer opened="true" mode="side" position="start">
+        <mat-nav-list>
+            <mat-list-item>
+                <button mat-button routerLink="food">
+                    <mat-icon>fastfood</mat-icon> Food item
+                </button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button mat-button routerLink="user">
+                    <mat-icon>supervised_user_circle</mat-icon> User
+                </button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button mat-button routerLink="discount">
+                    <mat-icon>domain</mat-icon> Discount
+                </button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button mat-button routerLink="notification">
+                    <mat-icon>notifications</mat-icon> Notification
+                </button>
+            </mat-list-item>
+
+            <mat-list-item>
+                <button mat-button>
+                    <mat-icon>help</mat-icon> Help
+                </button>
+            </mat-list-item>
+
+        </mat-nav-list>
+    </mat-drawer>
+
+    <mat-drawer-content>
+        <div class="content" style="text-align: center; min-height: 600px;">
+            <router-outlet></router-outlet>
+        </div>
+    </mat-drawer-content>
+</mat-drawer-container>
