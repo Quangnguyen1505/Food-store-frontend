@@ -26,7 +26,6 @@ export class OrderPageComponent {
       this.route.queryParams.subscribe(params => {
         const page = params['page'];
         this.paramsTag = "/order";
-        console.log("page: ", {page, params: this.paramsTag});
         
         this.checkoutService.getListOrder(page).subscribe((data) => {
           this.order = data?.metadata.orders;
@@ -34,12 +33,6 @@ export class OrderPageComponent {
         })
       });
     })
-        // this.checkoutService.checkoutObservable.subscribe((checkout) => {
-        //   this.order = checkout?.metadata.orders;
-        //   this.total = checkout?.metadata.totalCountOrder;
-        //   console.log("order: ", this.total);
-          
-        // })
   }
   
   changePage(page: number): void {

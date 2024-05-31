@@ -1,11 +1,11 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ORDER_BY_USER, ORDER_LIST, ORDER_REVIEW } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { getUserFromLocalStorage, setHeaders } from '../shared/auth/authen';
 
-const USER_KEY = "accessToken"
 const USER_ID = "userId"
 const CART_ID = "cartId"
 const CHECKOUT_DATA = "checkoutData"
@@ -29,7 +29,7 @@ export class CheckoutService {
   }
 
   checkOutReview(cartItem: any, discount = null){
-    const accessToken = this.getUserFromLocalStorage();
+    const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     if(!accessToken || !clientId) {
       console.log("error AT & CLID");
@@ -37,7 +37,7 @@ export class CheckoutService {
     }
 
     const parseClientId = JSON.parse(clientId);
-    const headers = this.setHeaders(accessToken, parseClientId);
+    const headers = setHeaders(accessToken, parseClientId);
     
     const foodsOrder = cartItem.cart_foods.map((item: any) => ({
       foodId: item.foodId,
@@ -68,9 +68,7 @@ export class CheckoutService {
   }
 
   orderByUser(order: any, discountCode = null, user_address: string){
-    console.log("kkaka", discountCode);
-    
-    const accessToken = this.getUserFromLocalStorage();
+    const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     const cartId = localStorage.getItem(CART_ID);
     if(!accessToken || !clientId || !cartId) {
@@ -80,7 +78,7 @@ export class CheckoutService {
     const parseClientId = JSON.parse(clientId);
     const parseCartId = JSON.parse(cartId);
     
-    const headers = this.setHeaders(accessToken, parseClientId);
+    const headers = setHeaders(accessToken, parseClientId);
     
     const foodsOrder = order.map((item: any) => ({
       foodId: item.foodId,
@@ -115,7 +113,7 @@ export class CheckoutService {
   }
 
   getListOrder( page: any): Observable<any>{
-    const accessToken = this.getUserFromLocalStorage();
+    const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     console.log(page);
     
@@ -124,29 +122,9 @@ export class CheckoutService {
       return new Observable<any>();
     }
     const parseClientId = JSON.parse(clientId);
-    const headers = this.setHeaders(accessToken, parseClientId);
+    const headers = setHeaders(accessToken, parseClientId);
 
     return this.http.get<any>( ORDER_LIST +"?page=" + page, { headers });
   }
 
-  private getUserFromLocalStorage(): any {
-    const userJson = localStorage.getItem(USER_KEY);
-    if (userJson) {
-      try {
-        const user = JSON.parse(userJson);
-        return user;
-      } catch (error) {
-        console.error('Error parsing user data from localStorage:', error);
-        localStorage.removeItem(USER_KEY);
-        return null;
-      }
-    }
-    return null;
-  }
-
-  private setHeaders(accessToken: any, parseClientId: any): HttpHeaders {
-    return new HttpHeaders()
-      .set('authorization', `Bearer ${accessToken}`)
-      .set('x-client-id', parseClientId);
-  }
 }

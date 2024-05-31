@@ -20,8 +20,6 @@ export class ResetPasswordComponent implements OnInit{
       activatedRoute.params.subscribe((params) => {
         if(params.resetToken){
           this.paramsToken = params.resetToken;
-          console.log("paramsToken::", this.paramsToken);
-          
         }
       });
     }

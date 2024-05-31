@@ -14,8 +14,7 @@ export class HeaderComponent {
   user!:any;
   constructor(
     cartService: CartService, 
-    private userService: UserService, 
-    private router:Router, private toastrServices:ToastrService
+    private userService: UserService
   ){
     cartService.cartObservable.subscribe((newCart) => {
         this.cartQuantity = newCart?.metadata?.cart_foods.length;
@@ -37,15 +36,5 @@ export class HeaderComponent {
   get token(){
     return this.user.metadata.tokens.asscessToken;
   }
-
-  // getCheckoutId(){
-  //   return localStorage.getItem('checkoutId');
-  // }
-
-  // checkOrder(){
-  //   if(!this.getCheckoutId()){
-  //     this.toastrServices.error('Pls add some food to cart', 'Order failed');
-  //   }
-  // }
 
 }
