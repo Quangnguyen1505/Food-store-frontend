@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { USER_FORGOTPASSWORD, USER_LOGIN, USER_LOGOUT, USER_PROFILE, USER_RESETPASSWORD, USER_SIGNUP } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './cart.service';
 import { Router } from '@angular/router';
+import { getUserFromLocalStorage, setHeaders, setUserToLocalStorage, setUserToLocalStorageRegister } from '../shared/auth/authen';
 
 const USER_KEY = "accessToken"
 const USER_ID = "userId"
@@ -31,7 +32,7 @@ export class UserService {
     return this.http.post<any>(USER_LOGIN, userLogin).pipe(
       tap({
         next: (user) => {
-          this.setUserToLocalStorage(user)
+          setUserToLocalStorage(user)
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.shop._id));
           this.getProfile();
           this.cartService.getCart();
@@ -51,7 +52,7 @@ export class UserService {
     return this.http.post<any>(USER_SIGNUP, userRegister).pipe(
       tap({
         next: (user) => {
-          this.setUserToLocalStorageRegister(user)
+          setUserToLocalStorageRegister(user)
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.metadata.shop._id));
           this.getProfile();
           this.cartService.getCart();
@@ -68,14 +69,14 @@ export class UserService {
   }
 
   logout(): Observable<any>{
-    const accessToken = this.getUserFromLocalStorage();
+    const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     if (!accessToken || !clientId) {
       console.log("error token or clientId::");
       return throwError("Error: Access token or client ID not found");
     }
     const parseClientId = JSON.parse(clientId);
-    const headers = this.setHeaders(accessToken, parseClientId);
+    const headers = setHeaders(accessToken, parseClientId);
     const logoutHttp = this.http.get<any>( USER_LOGOUT , { headers }).pipe(
       tap({
         next: () => {
@@ -133,14 +134,14 @@ export class UserService {
     )
   }
   getProfile(): void{
-    const accessToken = this.getUserFromLocalStorage();
+    const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
     if (!accessToken || !clientId) {
       console.log("error token or clientId::");
       return;
     }
     const parseClientId = JSON.parse(clientId);
-    const headers = this.setHeaders(accessToken, parseClientId);
+    const headers = setHeaders(accessToken, parseClientId);
 
     this.http.get<any>( USER_PROFILE, { headers }).subscribe(
       (data) => {
@@ -151,35 +152,4 @@ export class UserService {
       }
     );
   }
-
-  private setHeaders(accessToken: any, parseClientId: any){
-      const headers = new HttpHeaders()
-      .set('authorization', `Bearer ${accessToken}`)
-      .set('x-client-id', parseClientId);
-      return headers
-  }
-
-  private setUserToLocalStorageRegister(user: any){
-    localStorage.setItem(USER_KEY, JSON.stringify(user.metadata.metadata.tokens.asscessToken));
-  }
-
-  private setUserToLocalStorage(user: any){
-    localStorage.setItem(USER_KEY, JSON.stringify(user.metadata.tokens.asscessToken));
-  }
-
-  private getUserFromLocalStorage(): any {
-    const userJson = localStorage.getItem(USER_KEY);
-    if (userJson) {
-      try {
-        const user = JSON.parse(userJson);   
-        return user;
-      } catch (error) {
-        console.error('Error parsing user data from localStorage:', error);
-        localStorage.removeItem(USER_KEY);
-        return null; 
-      }
-    }
-    return null;
-  }
-
 }

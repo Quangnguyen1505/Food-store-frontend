@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 import { CheckoutService } from 'src/app/services/checkout.service';
-import { Cart } from 'src/app/shared/models/Cart';
 import { CartItem } from 'src/app/shared/models/CartItem';
 
 @Component({
