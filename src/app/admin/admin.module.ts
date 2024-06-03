@@ -6,12 +6,14 @@ import { AdminComponent } from './admin.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminHomeComponent } from './components/admin-home/admin-home.component';
 import { MaterialModule } from './material.module';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminMenubarComponent } from './components/admin-menubar/admin-menubar.component';
 import { AdminUserComponent } from './partials/admin-user/admin-user.component';
 import { AdminDiscountComponent } from './partials/admin-discount/admin-discount.component';
 import { AdminFoodComponent } from './partials/admin-food/admin-food.component';
 import { AdminNotificationComponent } from './partials/admin-notification/admin-notification.component';
+import { DialogBodyComponent } from './partials/dialog-body/dialog-body.component';
+import { DialogDeleteComponent } from './partials/dialog-delete/dialog-delete.component';
 
 
 @NgModule({
@@ -22,13 +24,16 @@ import { AdminNotificationComponent } from './partials/admin-notification/admin-
     AdminUserComponent,
     AdminDiscountComponent,
     AdminFoodComponent,
-    AdminNotificationComponent
+    AdminNotificationComponent,
+    DialogBodyComponent,
+    DialogDeleteComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
     MaterialModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule
   ]
 })
