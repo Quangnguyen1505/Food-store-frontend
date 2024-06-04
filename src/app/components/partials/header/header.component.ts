@@ -14,7 +14,7 @@ export class HeaderComponent {
   user!:any;
   constructor(
     cartService: CartService, 
-    private userService: UserService
+   public userService: UserService
   ){
     cartService.cartObservable.subscribe((newCart) => {
         this.cartQuantity = newCart?.metadata?.cart_foods.length;

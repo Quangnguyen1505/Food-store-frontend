@@ -7,7 +7,7 @@
                     <a routerLink="/login" *ngIf="!user">Login</a>
                 </li>
                 <li class="menu-container" *ngIf="user">
-                    <a routerLink="/dashboard">{{user.metadata.name}}</a>
+                    <a routerLink="/">{{user.metadata.name}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Account management</a>
                         <a routerLink="/order">Orders</a>

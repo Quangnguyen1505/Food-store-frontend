@@ -63,7 +63,7 @@ export class DialogBodyComponent implements OnInit{
     console.log("value Food::", this.myform.value);
     
     this.adminFoodService.SaveFood(this.inputdata.code, this.myform.value).subscribe(res => {
-      this.closepopup();
+        this.closepopup();
     });
   }
 }

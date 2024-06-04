@@ -21,6 +21,8 @@ export class AdminFoodService {
   }
 
   SaveFood(foodId: any, payload: any): Observable<any>{
+    console.log("foodId, payload", {foodId, payload});
+    
     let parseClientId;
     
     const accessToken = getUserFromLocalStorage();

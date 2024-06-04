@@ -66,10 +66,10 @@ export class AdminFoodComponent {
         code: code
       }
     });
-    // _popup.afterClosed().subscribe(item => {
-    //   // console.log(item)
-    //   this.loadcustomer();
-    // })
+    _popup.afterClosed().subscribe(item => {
+      console.log("kk",item)
+      this.loadcustomer();
+    })
   }
 
 }
