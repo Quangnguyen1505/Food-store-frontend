@@ -12,7 +12,7 @@ import { CartPageComponent } from './components/pages/cart-page/cart-page.compon
 import { TitleComponent } from './components/partials/title/title.component';
 import { NotFoundComponent } from './components/partials/not-found/not-found.component';
 import { LoginPageComponent } from './components/pages/login-page/login-page.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputContainerComponent } from './components/partials/input-container/input-container.component';
@@ -37,6 +37,13 @@ import { StateComponent } from './components/partials/state/state.component';
 import { ManagerAccountComponent } from './components/pages/profile/manager-account/manager-account.component';
 import { DiscountComponent } from './components/pages/profile/discount/discount.component';
 import { AdminModule } from './admin/admin.module';
+import { DialogRegisterComponent } from './components/partials/dialog-register/dialog-register.component';
+
+//Material
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -68,7 +75,8 @@ import { AdminModule } from './admin/admin.module';
     ListItemFoodComponent,
     StateComponent,
     ManagerAccountComponent,
-    DiscountComponent
+    DiscountComponent,
+    DialogRegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +90,12 @@ import { AdminModule } from './admin/admin.module';
       newestOnTop: false
     }),
     FontAwesomeModule,
-    AdminModule
+    AdminModule,
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: LoadingInterceptor, multi: true}

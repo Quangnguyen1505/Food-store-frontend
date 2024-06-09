@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap, throwError } from 'rxjs';
 import { IUserLogin } from '../shared/interfaces/IUserLogin';
 import { HttpClient } from '@angular/common/http';
-import { USER_FORGOTPASSWORD, USER_LOGIN, USER_LOGOUT, USER_PROFILE, USER_RESETPASSWORD, USER_SIGNUP } from '../shared/constants/urls';
+import { USER_FINAL_SIGNUP, USER_FORGOTPASSWORD, USER_LOGIN, USER_LOGOUT, USER_PROFILE, USER_RESETPASSWORD, USER_SIGNUP } from '../shared/constants/urls';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from './cart.service';
 import { Router } from '@angular/router';
@@ -52,6 +52,27 @@ export class UserService {
     return this.http.post<any>(USER_SIGNUP, userRegister).pipe(
       tap({
         next: (user) => {
+          this.toastrServices.success(
+            `Check email!`,
+            'Register comfirm'
+          )
+        },
+        error: (e) => {
+          this.toastrServices.error(e.error.message, 'Login Failed!')
+        }
+      })
+    )
+  }
+
+  finalRegister(hashEmail: any): Observable<any>{
+    const payload = {
+      hashEmail
+    }
+    return this.http.post<any>(USER_FINAL_SIGNUP, payload).pipe(
+      tap({
+        next: (user) => {
+          console.log("user::", user);
+          
           setUserToLocalStorageRegister(user)
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.metadata.shop._id));
           this.getProfile();
