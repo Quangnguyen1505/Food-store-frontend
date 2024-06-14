@@ -5,6 +5,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
 import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { FoodService } from 'src/app/services/food.service';
 
 
 @Component({
@@ -20,8 +21,8 @@ export class AdminFoodComponent {
   
   constructor(
     private foodService: AdminFoodService, 
-    private activatedRoute: ActivatedRoute,
-    private matDiaLog: MatDialog
+    private matDiaLog: MatDialog,
+    private foodServices:FoodService
   ) {
   }
 
@@ -70,6 +71,22 @@ export class AdminFoodComponent {
       console.log("kk",item)
       this.loadcustomer();
     })
+  }
+
+  Filterchange(event: Event){
+    const value = (event.target as HTMLInputElement).value;
+    
+    this.foodServices.getAllFoodsBySearchTerm(value).subscribe(
+      response => {
+      this.dataSource = response.metadata;
+      // this.totocalCount = response.metadata.totalCount;
+      
+      },
+      error => {
+      console.error('Error retrieving food data:', error);
+      }
+    );
+    
   }
 
 }

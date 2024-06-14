@@ -14,7 +14,7 @@ export class FoodService {
     return this.http.get<any>(FOOD_URL +"?page=" + page);
   }
 
-  getAllFoodsBySearchTerm(searchTerm: string){
+  getAllFoodsBySearchTerm(searchTerm: any){
     return this.http.get<any>(FOOD_SEARCH + searchTerm);
   }
 

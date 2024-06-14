@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { FOOD_UPDATE, FOOD_URL, FOOD_URL_ID } from '../shared/constants/urls';
+import { FOOD_DELETE, FOOD_UPDATE, FOOD_URL, FOOD_URL_ID } from '../shared/constants/urls';
 import { getUserFromLocalStorage, setHeaders } from 'src/app/shared/auth/authen';
 
 const USER_ID = "userId"
@@ -21,8 +21,6 @@ export class AdminFoodService {
   }
 
   SaveFood(foodId: any, payload: any): Observable<any>{
-    console.log("foodId, payload", {foodId, payload});
-    
     let parseClientId;
     
     const accessToken = getUserFromLocalStorage();
@@ -33,5 +31,29 @@ export class AdminFoodService {
     
     const headers = setHeaders(accessToken, parseClientId);
     return this.http.post<any>(FOOD_UPDATE + foodId, payload, {headers});
+  }
+
+  createFood(newpayload: any){
+    let parseClientId;
+    const payload = {payload: newpayload};
+    const accessToken = getUserFromLocalStorage();
+    const clientId = localStorage.getItem(USER_ID);
+    if(clientId != null){
+      parseClientId = JSON.parse(clientId);
+    }
+    
+    const headers = setHeaders(accessToken, parseClientId);
+    return this.http.post<any>(FOOD_URL, payload, {headers});
+  }
+
+  deleteFoodById(foodId: any){
+    let parseClientId;
+    const accessToken = getUserFromLocalStorage();
+    const clientId = localStorage.getItem(USER_ID);
+    if(clientId != null){
+      parseClientId = JSON.parse(clientId);
+    }
+    const headers = setHeaders(accessToken, parseClientId);
+    return this.http.get<any>(FOOD_DELETE + foodId, {headers});
   }
 }

@@ -37,7 +37,7 @@ export class RegisterPageComponent implements OnInit{
   }
 
   get fc(){
-    return this.registerForm.controls;
+  return this.registerForm.controls;
   }
 
   Openpopup(code: any, title: any,component:any) {

@@ -6,10 +6,9 @@ import { AdminFoodComponent } from './partials/admin-food/admin-food.component';
 import { AdminNotificationComponent } from './partials/admin-notification/admin-notification.component';
 import { AdminUserComponent } from './partials/admin-user/admin-user.component';
 
-
 const routes: Routes = [
   { 
-    path: 'admin', 
+    path: 'admin',
     component: AdminComponent,
     children: [
       {

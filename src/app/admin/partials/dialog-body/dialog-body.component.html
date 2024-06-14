@@ -5,9 +5,11 @@
             <mat-label>Name</mat-label>
             <input formControlName="name" matInput>
        </mat-form-field>
-       <mat-form-field class="form-field">
+       <mat-form-field *ngIf="tagtemp" class="form-field">
             <mat-label>tags</mat-label>
-            <input matInput formControlName="tags">
+            <mat-select #optionSelect formControlName="tags">
+                 <mat-option *ngFor="let tag of arrTags; let i = index" [value]= "tag.value" >{{tag.value}}</mat-option>
+             </mat-select>
        </mat-form-field>
        <mat-form-field class="form-field">
             <mat-label>imageUrl</mat-label>
@@ -16,7 +18,7 @@
        <mat-form-field class="form-field">
             <mat-label>origins</mat-label>
             <input matInput formControlName="origins">
-       </mat-form-field>
+       </mat-form-field>      
        <mat-form-field class="form-field">
             <mat-label>cookTime</mat-label>
             <input matInput formControlName="cookTime">
@@ -27,7 +29,7 @@
     </div>
     <div mat-dialog-actions>
         <button mat-raised-button type="submit" color="primary">Save</button>
-      <a (click)="closepopup()" mat-raised-button color="warn">Close</a>
+      <a mat-dialog-close mat-raised-button color="warn">Close</a>
       <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Cancel</button> -->
     </div>
 </form>

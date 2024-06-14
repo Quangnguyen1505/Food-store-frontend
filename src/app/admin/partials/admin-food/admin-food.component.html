@@ -1,7 +1,7 @@
 <mat-card>
     <mat-card-header>
         <mat-form-field>
-            <input matInput placeholder="Enter the text" />
+            <input (keyup)="Filterchange($event)" matInput placeholder="Enter the text" />
         </mat-form-field>
         <button style="margin-left: 60%;" (click)="addcustomer()" mat-raised-button color="primary">Add Food (+)</button>
     </mat-card-header>
@@ -9,8 +9,8 @@
         <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
                 <ng-container matColumnDef="id">
-                <th mat-sort-header mat-header-cell *matHeaderCellDef> Id</th>
-                <td mat-cell *matCellDef="let element">{{element._id}}</td>
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Id</th>
+                    <td mat-cell *matCellDef="let element">{{element._id}}</td>
                 </ng-container>
 
                 <ng-container matColumnDef="name">

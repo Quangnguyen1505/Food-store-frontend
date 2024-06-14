@@ -9,32 +9,39 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
-  cartQuantity!: number;
-  user!:any;
+export class HeaderComponent implements OnInit {
+  cartQuantity: number = 0;
+  user: any = {};
+  checkRole: boolean = false;
+
   constructor(
-    cartService: CartService, 
-   public userService: UserService
-  ){
-    cartService.cartObservable.subscribe((newCart) => {
-        this.cartQuantity = newCart?.metadata?.cart_foods.length;
-        if(!this.cartQuantity){
-          this.cartQuantity = 0;
-        }
-    })
+    private cartService: CartService, 
+    public userService: UserService,
+    private router: Router
+  ) {}
 
-    userService.userObservable.subscribe((newUser)=>{
-      this.user = newUser;
-    })
-  }
+  ngOnInit() {
+    this.cartService.cartObservable.subscribe((newCart) => {
+      this.cartQuantity = newCart?.metadata?.cart_foods.length || 0;
+    });
 
-  logout(){
-    this.userService.logout().subscribe(()=>{
-      window.location.reload();
+    this.userService.userObservable.subscribe((newUser) => {
+      this.user = newUser?.metadata?.shop || newUser?.metadata;
+      if(this.user?.roles[0] == "ADMIN"){
+        this.checkRole = true;
+      }
     });
   }
-  get token(){
-    return this.user.metadata.tokens.asscessToken;
+
+  logout() {
+    this.userService.logout().subscribe(() => {
+      this.router.navigate(['/']).then(() => {
+        window.location.reload();
+      });
+    });
   }
 
+  get token() {
+    return this.user?.metadata?.tokens?.accessToken || '';
+  }
 }
