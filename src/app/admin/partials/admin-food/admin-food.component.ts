@@ -3,8 +3,8 @@ import { AdminFoodService } from '../../services/admin-food.service';
 import { ActivatedRoute } from '@angular/router';
 import { PageEvent } from '@angular/material/paginator';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogBodyComponent } from '../dialog-body/dialog-body.component';
-import { DialogDeleteComponent } from '../dialog-delete/dialog-delete.component';
+import { DialogBodyComponent } from '../dialog-body-food/dialog-body.component';
+import { DialogDeleteComponent } from '../dialog-delete-food/dialog-delete.component';
 import { FoodService } from 'src/app/services/food.service';
 
 

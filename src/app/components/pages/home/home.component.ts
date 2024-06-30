@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
       if(params.searchTerm){
         this.foodServices.getAllFoodsBySearchTerm(params.searchTerm).subscribe(
           response => {
-            this.foods = response?.metadata.food; 
+            this.foods = response?.metadata; 
             this.checkTerm = true;
           },
           error => {
@@ -63,7 +63,6 @@ export class HomeComponent implements OnInit {
         this.activatedRoute.queryParams.subscribe(params => {
           let page;
           page = params['page'];
-          console.log("page: ", page);
           if(page == undefined) page = 1; 
           this.paramsTag = '';
           this.foodServices.getAll(page).subscribe(

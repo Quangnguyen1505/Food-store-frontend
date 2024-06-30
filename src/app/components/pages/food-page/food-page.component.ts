@@ -20,7 +20,6 @@ export default class FoodPageComponent {
       if(params.id){ 
         foodServices.getFoodById(params.id).subscribe(respone => {
           this.food = respone.metadata;
-          console.log("this is food page", this.food);
           foodServices.getAllFoodsByTag(respone.metadata.tags[0], 1).subscribe((response) => {
             this.suggestedFoods = response.metadata.foundFood;  
             this.tag = respone.metadata.tags[0];

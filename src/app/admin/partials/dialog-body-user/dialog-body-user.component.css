@@ -1,9 +1,7 @@
-button{
-    margin: 2px;
-}
-
-.actions{
+.img-avatar{
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 10rem;
+    height: auto;
 }

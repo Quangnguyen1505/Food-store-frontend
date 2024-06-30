@@ -9,7 +9,7 @@ import {
 import { Observable, tap } from 'rxjs';
 import { LoadingService } from 'src/app/services/loading.service';
 import { FOOD_SEARCH, FOOD_URL } from '../constants/urls';
-import { FOOD_UPDATE } from 'src/app/admin/shared/constants/urls';
+import { FOOD_UPDATE, USER_ALL_URL } from 'src/app/admin/shared/constants/urls';
 
 var pendingRequests = 0;
 
@@ -18,7 +18,8 @@ export class LoadingInterceptor implements HttpInterceptor {
   private excludedUrls: string[] = [
     FOOD_SEARCH,
     FOOD_UPDATE,
-    FOOD_URL
+    FOOD_URL,
+    USER_ALL_URL
   ];
 
   constructor(private loadingService: LoadingService) {}

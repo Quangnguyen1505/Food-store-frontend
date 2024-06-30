@@ -16,7 +16,7 @@
                 <div class="profile__item__value">{{item.order_shipping}}</div>
             </div>
             <div class="profile__item_name">
-                <div class="profile__item__title">Id: &nbsp; #1223</div>
+                <div class="profile__item__title">Id: &nbsp; #{{item._id}}</div>
             </div>
         </div>
         <order-items-list [order]="item.order_products" [totalPrice]="item.order_checkout"></order-items-list> 

@@ -5,11 +5,13 @@ import { AdminDiscountComponent } from './partials/admin-discount/admin-discount
 import { AdminFoodComponent } from './partials/admin-food/admin-food.component';
 import { AdminNotificationComponent } from './partials/admin-notification/admin-notification.component';
 import { AdminUserComponent } from './partials/admin-user/admin-user.component';
+import { AdminGuard } from '../shared/guards/admin.guard';
 
 const routes: Routes = [
   { 
     path: 'admin',
     component: AdminComponent,
+    canActivate: [AdminGuard],
     children: [
       {
         path: 'discount',
