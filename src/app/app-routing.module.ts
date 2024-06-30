@@ -12,7 +12,7 @@ import { ResetPasswordComponent } from './components/pages/reset-password/reset-
 import { OrderPageComponent } from './components/pages/order-page/order-page.component';
 
 const routes: Routes = [
-  {path: '', component: HomeComponent},
+  {path: '', component: HomeComponent },
   {path: 'search/:searchTerm', component: HomeComponent},
   {path: 'tag/:tag', component: HomeComponent},
   {path: 'food/:id', component: FoodPageComponent},

@@ -10,7 +10,7 @@ export class ManagerAccountComponent {
   user!: any;
   constructor( private userService: UserService){
     this.userService.userObservable.subscribe((newUser)=>{
-      this.user = newUser.metadata;
+      this.user = newUser?.metadata?.shop || newUser?.metadata;
     })
   }
 }

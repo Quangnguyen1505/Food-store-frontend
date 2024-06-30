@@ -6,37 +6,54 @@ import {
   HttpInterceptor,
   HttpEventType
 } from '@angular/common/http';
-var pendingRequests = 0;
 import { Observable, tap } from 'rxjs';
 import { LoadingService } from 'src/app/services/loading.service';
+import { FOOD_SEARCH, FOOD_URL } from '../constants/urls';
+import { FOOD_UPDATE, USER_ALL_URL } from 'src/app/admin/shared/constants/urls';
+
+var pendingRequests = 0;
 
 @Injectable()
 export class LoadingInterceptor implements HttpInterceptor {
+  private excludedUrls: string[] = [
+    FOOD_SEARCH,
+    FOOD_UPDATE,
+    FOOD_URL,
+    USER_ALL_URL
+  ];
 
-  constructor(private loadingServices: LoadingService) {}
+  constructor(private loadingService: LoadingService) {}
+
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
-    this.loadingServices.showLoading();
-    pendingRequests = pendingRequests + 1;
+    const shouldExclude = this.excludedUrls.some(url => request.url.includes(url));
+
+    if (!shouldExclude) {
+      this.loadingService.showLoading();
+      pendingRequests = pendingRequests + 1;
+    }
 
     return next.handle(request).pipe(
       tap({
-        next:(event) => {
-          if(event.type === HttpEventType.Response){
-            this.handleHideLoading();
+        next: (event) => {
+          if (event.type === HttpEventType.Response) {
+            if (!shouldExclude) {
+              this.handleHideLoading();
+            }
           }
         },
         error: (_) => {
-          this.handleHideLoading();
+          if (!shouldExclude) {
+            this.handleHideLoading();
+          }
         }
-
       })
-    )
+    );
   }
 
-  handleHideLoading(){
+  handleHideLoading() {
     pendingRequests = pendingRequests - 1;
-    if(pendingRequests === 0){
-      this.loadingServices.hideLoading();
+    if (pendingRequests === 0) {
+      this.loadingService.hideLoading();
     }
   }
 }

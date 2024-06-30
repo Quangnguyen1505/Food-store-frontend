@@ -1,0 +1,35 @@
+<form [formGroup]="myform" (ngSubmit)="SaveFood()">
+    <h1 mat-dialog-title>{{inputdata.title}}</h1>
+    <div mat-dialog-content>
+       <mat-form-field class="form-field">
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput>
+       </mat-form-field>
+       <mat-form-field *ngIf="tagtemp" class="form-field">
+            <mat-label>tags</mat-label>
+            <mat-select #optionSelect formControlName="tags">
+                 <mat-option *ngFor="let tag of arrTags; let i = index" [value]= "tag.value" >{{tag.value}}</mat-option>
+             </mat-select>
+       </mat-form-field>
+       <mat-form-field class="form-field">
+            <mat-label>imageUrl</mat-label>
+            <input matInput formControlName="imageUrl">
+       </mat-form-field>
+       <mat-form-field class="form-field">
+            <mat-label>origins</mat-label>
+            <input matInput formControlName="origins">
+       </mat-form-field>      
+       <mat-form-field class="form-field">
+            <mat-label>cookTime</mat-label>
+            <input matInput formControlName="cookTime">
+       </mat-form-field>
+       <div>
+        <mat-checkbox >Is Active</mat-checkbox>
+       </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button type="submit" color="primary">Save</button>
+        <a mat-dialog-close mat-raised-button color="warn">Close</a>
+      <!-- <button mat-raised-button [mat-dialog-close]="closemessage" color="accent">Cancel</button> -->
+    </div>
+</form>

@@ -1,1 +1,59 @@
-<p>admin-user works!</p>
+<mat-card>
+    <mat-card-header>
+        <mat-form-field>
+            <input matInput placeholder="Enter the text" />
+        </mat-form-field>
+        <button style="margin-left: 60%;" (click)="addcustomer()" mat-raised-button color="primary">Add User (+)</button>
+    </mat-card-header>
+    <mat-card-content>
+        <table matSort mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                <ng-container matColumnDef="id">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Id</th>
+                    <td mat-cell *matCellDef="let element">{{element._id.substring(0, 5)}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="name">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Name</th>
+                    <td mat-cell *matCellDef="let element">{{element.name}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="email">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Email</th>
+                    <td mat-cell *matCellDef="let element">{{element.email}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="address">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Address</th>
+                    <td mat-cell *matCellDef="let element">{{element.address}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="status">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Status</th>
+                    <td mat-cell *matCellDef="let element">{{element.status}}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="avatar">
+                    <th mat-sort-header mat-header-cell *matHeaderCellDef> Avatar</th>
+                    <td mat-cell *matCellDef="let element">avatar</td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef> Action</th>
+                    <td class="actions" mat-cell *matCellDef="let element">
+                        <button mat-raised-button color="primary" (click)="openDialogEdit(element._id)">Edit</button>
+                        <button mat-raised-button color="warn" (click)="openDialogDel(element._id)">Delete</button>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row;columns:displayedColumns"></tr>
+
+        </table>
+    </mat-card-content>
+<br>
+    <mat-card-footer>
+        <mat-paginator [length]="5" [pageSizeOptions]="[1,2,3]" showFirstLastButtons >></mat-paginator>
+    </mat-card-footer>
+</mat-card>

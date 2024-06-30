@@ -35,8 +35,12 @@ export class LoginPageComponent implements OnInit{
     this.isSubmitted = true;
     if(this.loginForm.invalid) return;
 
-    this.userService.login({email: this.fc.email.value, password: this.fc.password.value}).subscribe(()=>{
-      this.router.navigateByUrl(this.returnURL);
+    this.userService.login({email: this.fc.email.value, password: this.fc.password.value}).subscribe((data)=>{
+      if(data.metadata.shop.roles[0] == 'ADMIN'){
+        return this.router.navigateByUrl('/admin');
+      }
+      
+      return this.router.navigateByUrl(this.returnURL);
     });
   }
 }

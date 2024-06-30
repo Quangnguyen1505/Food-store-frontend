@@ -22,16 +22,12 @@ export class PaginationComponent implements OnInit{
   pages: number[] = [];
 
   ngOnInit(): void {
-    console.log("total: ", this.total);
-    
     const pageCount = Math.ceil(this.total / this.limit);
     this.pages = this.range(1, pageCount);
 
     if(!this.link){
       const link = ''
       this.link = link + this.tag;
-      console.log("link: ", this.link);
-      
     }
 
     

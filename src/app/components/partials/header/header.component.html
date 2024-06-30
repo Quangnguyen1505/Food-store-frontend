@@ -1,20 +1,20 @@
 <header>
     <div class="container">
-        <a  routerLink="/" class="logo" >Food Mine!</a>
+        <a routerLink="/" class="logo" >Food Mine!</a>
         <nav>
             <ul>
                 <li>
                     <a routerLink="/login" *ngIf="!user">Login</a>
                 </li>
                 <li class="menu-container" *ngIf="user">
-                    <a routerLink="/dashboard">{{user.metadata.name}}</a>
+                    <a routerLink="/">{{user?.name}}</a>
                     <div class="menu">
                         <a routerLink="/profile">Account management</a>
                         <a routerLink="/order">Orders</a>
                         <a (click)="logout()" >Logout</a>
                     </div>
                 </li>
-                <li>
+                <li *ngIf="!checkRole">
                     <a routerLink="/cart-page">
                         Cart <span *ngIf="!user">0</span> <span *ngIf="user">{{cartQuantity}}</span>  
                     </a>

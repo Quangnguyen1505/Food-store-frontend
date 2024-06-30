@@ -115,8 +115,6 @@ export class CheckoutService {
   getListOrder( page: any): Observable<any>{
     const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
-    console.log(page);
-    
     if ( !accessToken || !clientId ) {
       console.log("error token or clientId::");
       return new Observable<any>();
