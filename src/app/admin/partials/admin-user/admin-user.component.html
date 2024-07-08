@@ -35,7 +35,11 @@
 
                 <ng-container matColumnDef="avatar">
                     <th mat-sort-header mat-header-cell *matHeaderCellDef> Avatar</th>
-                    <td mat-cell *matCellDef="let element">avatar</td>
+                    <td mat-cell *matCellDef="let element">
+                        <a href="{{element.avatarUrl}}" target="_blank"><img class="img-avatar" *ngIf="element.avatarUrl; else textAvatar" [src]="element.avatarUrl" alt="avatar"></a>
+                        <ng-template #textAvatar>User not update</ng-template>
+                        
+                    </td>
                 </ng-container>
 
                 <ng-container matColumnDef="action">
@@ -54,6 +58,6 @@
     </mat-card-content>
 <br>
     <mat-card-footer>
-        <mat-paginator [length]="5" [pageSizeOptions]="[1,2,3]" showFirstLastButtons >></mat-paginator>
+        <mat-paginator [length]="totalCount" [pageSizeOptions]="[1,2,3]" showFirstLastButtons (page)="onPageChange($event)"></mat-paginator>
     </mat-card-footer>
 </mat-card>

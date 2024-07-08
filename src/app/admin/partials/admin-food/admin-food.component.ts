@@ -46,15 +46,15 @@ export class AdminFoodComponent {
   }
 
   openDialogEdit(code: any){
-    this.Openpopup(code, 'Edit Customer', DialogBodyComponent)
+    this.Openpopup(code, 'Edit Food', DialogBodyComponent)
   }
 
   openDialogDel(code: any){
-    this.Openpopup(code, 'Del Customer', DialogDeleteComponent)
+    this.Openpopup(code, 'Del Food', DialogDeleteComponent)
   }
 
   addcustomer(){
-    this.Openpopup(0, 'Add Customer',DialogBodyComponent);
+    this.Openpopup(0, 'Add Food',DialogBodyComponent);
   }
 
   Openpopup(code: any, title: any,component:any) {
@@ -68,7 +68,6 @@ export class AdminFoodComponent {
       }
     });
     _popup.afterClosed().subscribe(item => {
-      console.log("kk",item)
       this.loadcustomer();
     })
   }

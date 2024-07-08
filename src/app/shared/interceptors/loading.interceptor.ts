@@ -8,8 +8,8 @@ import {
 } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { LoadingService } from 'src/app/services/loading.service';
-import { FOOD_SEARCH, FOOD_URL } from '../constants/urls';
-import { FOOD_UPDATE, USER_ALL_URL } from 'src/app/admin/shared/constants/urls';
+import { DISCOUNT_URL, FOOD_SEARCH } from '../constants/urls';
+import { FOOD_UPDATE, USER_ALL_URL, FOOD_URL } from 'src/app/admin/shared/constants/urls';
 
 var pendingRequests = 0;
 
@@ -19,7 +19,8 @@ export class LoadingInterceptor implements HttpInterceptor {
     FOOD_SEARCH,
     FOOD_UPDATE,
     FOOD_URL,
-    USER_ALL_URL
+    USER_ALL_URL,
+    DISCOUNT_URL
   ];
 
   constructor(private loadingService: LoadingService) {}

@@ -15,6 +15,10 @@ import { DialogBodyComponent } from './partials/dialog-body-food/dialog-body.com
 import { DialogDeleteComponent } from './partials/dialog-delete-food/dialog-delete.component';
 import { DialogBodyUserComponent } from './partials/dialog-body-user/dialog-body-user.component';
 import { DialogDeleteUserComponent } from './partials/dialog-delete-user/dialog-delete-user.component';
+import { DialogDeleteDiscountComponent } from './partials/dialog-delete-discount/dialog-delete-discount.component';
+import { DialogBodyDiscountComponent } from './partials/dialog-body-discount/dialog-body-discount.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 
 
 @NgModule({
@@ -28,7 +32,9 @@ import { DialogDeleteUserComponent } from './partials/dialog-delete-user/dialog-
     DialogBodyComponent,
     DialogDeleteComponent,
     DialogBodyUserComponent,
-    DialogDeleteUserComponent
+    DialogDeleteUserComponent,
+    DialogBodyDiscountComponent,
+    DialogDeleteDiscountComponent
   ],
   imports: [
     CommonModule,
@@ -37,6 +43,10 @@ import { DialogDeleteUserComponent } from './partials/dialog-delete-user/dialog-
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
+  ],
+  providers: [
+    MatDatepickerModule,
+    MatNativeDateModule
   ]
 })
 export class AdminModule { }

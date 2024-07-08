@@ -5,3 +5,12 @@ button{
 .actions {
     display: flex;
 }
+
+.img-avatar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5rem;
+    height: auto;
+    border-radius: 3rem;
+}

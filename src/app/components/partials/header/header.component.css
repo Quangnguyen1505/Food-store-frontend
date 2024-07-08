@@ -64,3 +64,12 @@ a span{
     width: 100%;
     min-width: 8rem;
 }
+
+.img-avt {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 10px;
+    margin-top: 5px;
+}

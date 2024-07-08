@@ -3,6 +3,7 @@ import { AdminUserService } from '../../services/admin-user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBodyUserComponent } from '../dialog-body-user/dialog-body-user.component';
 import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-user.component';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-admin-user',
@@ -11,6 +12,7 @@ import { DialogDeleteUserComponent } from '../dialog-delete-user/dialog-delete-u
 })
 export class AdminUserComponent implements OnInit{
   dataSource!: any[];
+  totalCount!: number;
   displayedColumns: string[] = ["id", "name", "email", "address", "status", "avatar", "action"];
   constructor( 
     private adminUserService: AdminUserService, 
@@ -21,9 +23,10 @@ export class AdminUserComponent implements OnInit{
   }
 
   getAllUser(){
-    this.adminUserService.getAllUser().subscribe((data) => {
+    this.adminUserService.getAllUser(1).subscribe((data) => {
       console.log("data", data);
       this.dataSource = data?.metadata;
+      this.totalCount = data?.metadata?.length;
     });
   }
 
@@ -53,5 +56,14 @@ export class AdminUserComponent implements OnInit{
       console.log("kk",item)
       this.getAllUser();
     })
+  }
+
+  onPageChange(event: PageEvent) {
+    let page = event.pageSize;
+    this.adminUserService.getAllUser(page).subscribe((data) => {
+      console.log("data", data);
+      this.dataSource = data?.metadata;
+      this.totalCount = data?.metadata?.length;
+    });
   }
 }

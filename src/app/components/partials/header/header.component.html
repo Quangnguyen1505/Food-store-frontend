@@ -6,6 +6,9 @@
                 <li>
                     <a routerLink="/login" *ngIf="!user">Login</a>
                 </li>
+                <li>
+                    <img class="img-avt" *ngIf="user?.avatarUrl" [src]="user?.avatarUrl" alt="avt">
+                </li>
                 <li class="menu-container" *ngIf="user">
                     <a routerLink="/">{{user?.name}}</a>
                     <div class="menu">

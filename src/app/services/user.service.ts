@@ -12,6 +12,7 @@ const USER_KEY = "accessToken";
 const USER_ID = "userId";
 const CHECKOUT_DATA = "checkoutData";
 const CHECKOUT_ID = "checkoutId";
+const CART_ID = "cartId"
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,7 @@ const CHECKOUT_ID = "checkoutId";
 export class UserService {
   private userSubject = new BehaviorSubject<any>(null);
   public userObservable: Observable<any>;
+  user$ = this.userSubject.asObservable();
   private cartSubject = new BehaviorSubject<any>(null);
   
   constructor(
@@ -29,15 +31,18 @@ export class UserService {
   ) {
     this.userObservable = this.userSubject.asObservable();
     const accessToken = getUserFromLocalStorage();
+    // if(accessToken){
+    //   this.getProfile().subscribe(
+    //     (data) => {
+    //       this.userSubject.next(data); 
+    //     },
+    //     (error) => {
+    //       console.error('Error fetching user profile:', error);
+    //     }
+    //   );
+    // }
     if(accessToken){
-      this.getProfile().subscribe(
-        (data) => {
-          this.userSubject.next(data); 
-        },
-        (error) => {
-          console.error('Error fetching user profile:', error);
-        }
-      );
+      this.getProfile();
     }
   }
   public get currentUser():any{
@@ -49,8 +54,8 @@ export class UserService {
         next: (user) => {
           setUserToLocalStorage(user);
           localStorage.setItem(USER_ID, JSON.stringify(user.metadata.shop._id));
-          // this.getProfile();
-          this.userSubject.next(user);
+          this.getProfile();
+          // this.userSubject.next(user);
           this.cartService.getCart().subscribe((data) => {
             this.cartSubject.next(data);
           });
@@ -119,6 +124,7 @@ export class UserService {
           localStorage.removeItem(USER_ID);
           localStorage.removeItem(CHECKOUT_DATA);
           localStorage.removeItem(CHECKOUT_ID);
+          localStorage.removeItem(CART_ID);
         },
         error: (e) => {
           this.toastrServices.error(e.error.message, 'Logout Failed!');
@@ -155,7 +161,29 @@ export class UserService {
     );
   }
 
-  getProfile(): Observable<any> {
+  // getProfile(): Observable<any> {
+  //   let parseClientId;
+  //   const accessToken = getUserFromLocalStorage();
+  //   const clientId = localStorage.getItem(USER_ID);
+  //   if (clientId !== null) {
+  //     parseClientId = JSON.parse(clientId);
+  //   }
+
+  //   const headers = setHeaders(accessToken, parseClientId);
+    
+  //   return this.http.get<any>(USER_PROFILE, { headers }).pipe(
+  //     tap({
+  //       next: (data) => {
+  //         this.userSubject.next(data);
+  //       },
+  //       error: (error) => {
+  //         console.error('Error fetching user profile:', error);
+  //       }
+  //     })
+  //   );    
+  // }
+
+  getProfile() {
     let parseClientId;
     const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);
@@ -165,16 +193,15 @@ export class UserService {
 
     const headers = setHeaders(accessToken, parseClientId);
     
-    return this.http.get<any>(USER_PROFILE, { headers }).pipe(
-      tap({
-        next: (data) => {
-          this.userSubject.next(data);
-        },
-        error: (error) => {
-          console.error('Error fetching user profile:', error);
-        }
-      })
-    );    
+     this.http.get<any>(USER_PROFILE, { headers }).subscribe({
+      next: (data) => {
+        this.userSubject.next(data);
+      },
+      error: (e) => {
+        console.error(e);
+        
+      }
+    })
   }
 
 }

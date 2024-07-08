@@ -1,7 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, computed, Inject, OnInit, signal } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AdminFoodService } from '../../services/admin-food.service';
+
 
 @Component({
   selector: 'app-dialog-body',
@@ -12,40 +13,40 @@ export class DialogBodyComponent implements OnInit {
   inputdata: any;
   editdata: any;
   closemessage = 'closed using directive';
-  arrTags: any = [];
-  tagtemp = true;
   myform: FormGroup;
-
+  tagList!: String[];
+  originList!: String[];
+  foodImgPreview: string | ArrayBuffer | null = null;
+  file_food: File | null = null;
   constructor(@Inject(MAT_DIALOG_DATA) public data: any,
               private ref: MatDialogRef<DialogBodyComponent>,
               private buildr: FormBuilder,
               private adminFoodService: AdminFoodService) {
+    this.getAllTags();
     this.myform = this.buildr.group({
       name: this.buildr.control(''),
       price: this.buildr.control(''),
-      tags: this.buildr.array([]),
+      tags: this.buildr.control(''),
       imageUrl: this.buildr.control(''),
       origins: this.buildr.control(''),
       cookTime: this.buildr.control('')
     });
+    
   }
 
   ngOnInit(): void {
     this.inputdata = this.data;
-    console.log("input data::", this.inputdata);
-
     if (this.inputdata.code) {
-      this.tagtemp = false;
       setTimeout(() => {
         this.setpopupdata(this.inputdata.code);
       });
     } else {
-      this.arrTags = ['all', 'kaka', 'heh'].map(tag => ({ value: tag }));
-      this.setInitialTags(['all', 'kaka', 'heh']);
+      this.originList = ['VietNam', 'China', 'UK', 'italy', 'Japan'];
       this.myform.patchValue({
         name: '',
         price: '',
         imageUrl: '',
+        tags: '',
         origins: '',
         cookTime: ''
       });
@@ -54,32 +55,20 @@ export class DialogBodyComponent implements OnInit {
 
   setpopupdata(code: any) {
     this.adminFoodService.getFoodById(code).subscribe(item => {
-      this.editdata = item.metadata;
-      console.log("edit data:", this.editdata);
+      this.editdata = item?.metadata;
+      this.originList = this.editdata.origins;
+      this.foodImgPreview = this.editdata.imageUrl;
 
       this.myform.patchValue({
         name: this.editdata.name || '',
         price: this.editdata.price || '',
         imageUrl: this.editdata.imageUrl || '',
+        tags: this.editdata.tags || '', 
         origins: this.editdata.origins || '',
         cookTime: this.editdata.cookTime || ''
       });
-
-      // this.arrTags = this.editdata.tags.map((tag: any) => ({ value: tag }));
-      // this.setInitialTags(this.editdata.tags || []);
     });
   }
-
-  setInitialTags(tags: string[]): void {
-    const tagsFormArray = this.myform.get('tags') as FormArray;
-    tagsFormArray.clear();
-    tags.forEach(tag => tagsFormArray.push(new FormControl(tag)));
-  }
-
-  get tagsArray() {
-    return (this.myform.get('tags') as FormArray).controls;
-  }
-
   get fc() {
     return this.myform.controls;
   }
@@ -89,15 +78,38 @@ export class DialogBodyComponent implements OnInit {
   }
 
   SaveFood() {
-    console.log("value Food:", this.inputdata.code);
-    if (this.inputdata.code === 0) {
-      this.adminFoodService.createFood(this.myform.value).subscribe(res => {
-        this.closepopup();
-      });
-    } else {
-      this.adminFoodService.SaveFood(this.inputdata.code, this.myform.value).subscribe(res => {
-        this.closepopup();
-      });
+    if(this.file_food){
+      if (this.inputdata.code === 0) {
+        this.adminFoodService.createFood(this.myform.value, this.file_food).subscribe(res => {
+          this.closepopup();
+        });
+      } else {
+          this.adminFoodService.SaveFood(this.inputdata.code, this.myform.value, this.file_food).subscribe(res => {
+            this.closepopup();
+          });
+      }
+    }
+  }
+
+  getAllTags() {
+    this.adminFoodService.getAllTags().subscribe(data => {
+      this.tagList = data?.metadata?.map( (item: any) => item.name );
+    })
+  }
+
+  onFileSelected(event: Event): void {
+    const fileInput = event.target as HTMLInputElement;
+    if (fileInput.files && fileInput.files.length > 0) {
+      this.file_food = fileInput.files[0];
+    }
+    if (this.file_food) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.foodImgPreview = e.target.result;
+      };
+      reader.readAsDataURL(this.file_food);
+
+      // this.myform.patchValue({ avatar: file.name });
     }
   }
 }

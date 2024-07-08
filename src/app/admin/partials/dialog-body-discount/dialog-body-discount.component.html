@@ -1,0 +1,42 @@
+<form [formGroup]="myform" (ngSubmit)="SaveDiscount()">
+    <h1 mat-dialog-title>{{inputdata.title}}</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Code</mat-label>
+            <input formControlName="discount_code" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input formControlName="discount_name" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Value</mat-label>
+            <input formControlName="discount_value" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Count</mat-label>
+            <input matInput formControlName="discount_count">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input matInput formControlName="discount_start_date" [matDatepicker]="pickerStart">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerStart"></mat-datepicker-toggle>
+            <mat-datepicker #pickerStart></mat-datepicker>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>End Date</mat-label>
+            <input matInput formControlName="discount_end_date" [matDatepicker]="pickerEnd">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="pickerEnd"></mat-datepicker-toggle>
+            <mat-datepicker #pickerEnd></mat-datepicker>
+        </mat-form-field>
+        <div>
+            <mat-checkbox >Is Active</mat-checkbox>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button type="submit" color="primary">Save</button>
+        <button mat-dialog-close mat-raised-button color="warn">Close</button>
+    </div>
+</form>

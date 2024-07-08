@@ -5,3 +5,7 @@
     width: 10rem;
     height: auto;
 }
+
+mat-form-field{
+    margin: 0.3rem;
+}
