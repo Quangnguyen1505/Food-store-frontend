@@ -25,3 +25,6 @@ export const ORDER_BY_USER = ORDER_REVIEW + '/create'
 export const ORDER_LIST = ORDER_REVIEW + '/listOrder'
 
 export const DISCOUNT_URL = BASE_URL + '/v1/api/discount'
+
+export const NOTIFICATION_URL = BASE_URL + '/v1/api/notification'
+export const NOTIFICATION_LIST_URL = NOTIFICATION_URL + '/listNoti'

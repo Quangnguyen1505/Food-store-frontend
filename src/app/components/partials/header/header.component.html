@@ -17,6 +17,33 @@
                         <a (click)="logout()" >Logout</a>
                     </div>
                 </li>
+                <li class="menu-container" *ngIf="user" [matMenuTriggerFor]="menuNoti">
+                    <button mat-icon-button>
+                        <mat-icon class="icon-noti" matBadgeColor="accent" [matBadge]="notiLength" matBadgeSize="small">notifications</mat-icon>
+                    </button>
+                </li>
+                <mat-menu #menuNoti="matMenu" yPosition="below">
+                    <ng-template matMenuContent>
+                        <div *ngIf="notiLength>0; else templateNoti">
+                            <div *ngFor="let item of noti">
+                                <ul class="menu-noti" mat-menu-item (click)="directionalNoti(item.noti_options)">
+                                    <li>
+                                        <img style="height: 30px; width: auto;" src="../../../../assets/logo-footer.png" alt="notification">
+                                    </li>
+                                    <li>
+                                        {{item.noti_content}}
+                                    </li>
+                                    <li>
+                                        {{item.createdAt | date}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </ng-template>
+                    <ng-template matMenuContent #templateNoti>
+                        <p>No notification</p>
+                    </ng-template>
+                </mat-menu>
                 <li *ngIf="!checkRole">
                     <a routerLink="/cart-page">
                         Cart <span *ngIf="!user">0</span> <span *ngIf="user">{{cartQuantity}}</span>  
