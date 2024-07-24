@@ -12,7 +12,7 @@ const USER_ID = "userId"
 })
 export class AdminFoodService {
 
-  constructor(private http: HttpClient, private toastrServices: ToastrService) { }
+  constructor(private http: HttpClient, private toastrServices: ToastrService) {}
   getAll(page: any): Observable<any>{    
     return this.http.get<any>(FOOD_URL +"?page=" + page);
   }

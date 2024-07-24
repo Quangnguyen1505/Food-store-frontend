@@ -2,6 +2,7 @@ import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/services/cart.service';
+import { NotificationsService } from 'src/app/services/notifications.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -13,10 +14,12 @@ export class HeaderComponent implements OnInit {
   cartQuantity: number = 0;
   user: any = {};
   checkRole: boolean = false;
-
+  noti: any = [];
+  notiLength: number = 0;
   constructor(
     private cartService: CartService, 
     public userService: UserService,
+    public notificationService: NotificationsService,
     private router: Router
   ) {}
 
@@ -31,6 +34,11 @@ export class HeaderComponent implements OnInit {
         this.checkRole = true;
       }
     });
+
+    this.notificationService.notiObservable.subscribe((data) => {
+      this.noti = data?.metadata;
+      this.notiLength = this.noti?.length || 0;
+    });
   }
 
   logout() {
@@ -43,5 +51,13 @@ export class HeaderComponent implements OnInit {
 
   get token() {
     return this.user?.metadata?.tokens?.accessToken || '';
+  }
+
+  directionalNoti(code: any){
+    if(code?.foodId){
+      return this.router.navigateByUrl("/food/"+code?.foodId);
+    }
+
+    return this.router.navigateByUrl("/profile/discounts");
   }
 }

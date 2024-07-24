@@ -30,17 +30,8 @@ export class UserService {
     private router: Router
   ) {
     this.userObservable = this.userSubject.asObservable();
+    
     const accessToken = getUserFromLocalStorage();
-    // if(accessToken){
-    //   this.getProfile().subscribe(
-    //     (data) => {
-    //       this.userSubject.next(data); 
-    //     },
-    //     (error) => {
-    //       console.error('Error fetching user profile:', error);
-    //     }
-    //   );
-    // }
     if(accessToken){
       this.getProfile();
     }

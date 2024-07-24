@@ -51,7 +51,6 @@ export class DialogBodyUserComponent {
     this.adminUserService.getCurrentUser(code).subscribe(item => {
       this.editdata = item.metadata;
       this.avatarPreview = this.editdata.avatarUrl;
-      console.log("edit data:", this.editdata);
 
       this.myform.patchValue({
         name: this.editdata.name || '',
