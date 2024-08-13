@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
 import {
-  faTicket, faArrowRightFromBracket, faBell, faUser
+  faTicket, faArrowRightFromBracket, faBell, faUser, faKey
 } from '@fortawesome/free-solid-svg-icons'
 
 @Component({
@@ -15,9 +15,10 @@ export class ProfileComponent {
   faArrowRightFromBracket = faArrowRightFromBracket
   faBell = faBell;
   faUser = faUser;
+  faKey = faKey;
   constructor( private userService: UserService){
     this.userService.userObservable.subscribe((newUser)=>{
-      this.user = newUser.metadata;
+      this.user = newUser?.metadata;
     })
   }
 }

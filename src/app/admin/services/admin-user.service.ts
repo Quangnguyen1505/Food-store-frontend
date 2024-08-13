@@ -63,6 +63,8 @@ export class AdminUserService {
   }
 
   saveUser(userId: any, body: any, avatar_img: File): Observable<any>{
+    console.log("body", body);
+    
     let parseClientId;
     const accessToken = getUserFromLocalStorage();
     const clientId = localStorage.getItem(USER_ID);

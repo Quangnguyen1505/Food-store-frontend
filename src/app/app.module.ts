@@ -50,6 +50,8 @@ import { MatMenuModule } from '@angular/material/menu';
 
 //socket
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { BodyEditUserComponent } from './components/partials/body-edit-user/body-edit-user.component';
+import { ChangePasswordComponent } from './components/pages/profile/change-password/change-password.component';
 const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
 
 @NgModule({
@@ -83,7 +85,9 @@ const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
     StateComponent,
     ManagerAccountComponent,
     DiscountComponent,
-    DialogRegisterComponent
+    DialogRegisterComponent,
+    BodyEditUserComponent,
+    ChangePasswordComponent
   ],
   imports: [
     BrowserModule,

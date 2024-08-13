@@ -8,9 +8,10 @@
     <div class="column left" >
       <h2>Account management</h2>
       <ul>
-        <li routerLink="/profile"><fa-icon [icon]="faUser"></fa-icon>Profile {{user.name}}</li>
+        <li routerLink="/profile"><fa-icon [icon]="faUser"></fa-icon>Profile {{user?.name}}</li>
         <li routerLink="/order"><fa-icon [icon]="faArrowRightFromBracket"></fa-icon>Order</li>
         <li routerLink="discounts"><fa-icon [icon]="faTicket"></fa-icon>Discount system</li>
+        <li routerLink="change-password"><fa-icon [icon]="faKey"></fa-icon>Change password</li>
         <li><fa-icon [icon]="faBell"></fa-icon>Notification</li>
       </ul>
     </div>

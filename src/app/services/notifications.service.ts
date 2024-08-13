@@ -22,7 +22,16 @@ export class NotificationsService {
   }
 
   getAllNoti(): Observable<any>{
-    return this.http.get<any>(NOTIFICATION_LIST_URL);
+    return this.http.get<any>(NOTIFICATION_LIST_URL).pipe(
+      tap({
+        next: (data) => {
+          this.notiSubject.next(data);
+        },
+        error: (e) => {
+          console.error('Error fetching user profile:', e);
+        }
+      })
+    );
   }
 
 }

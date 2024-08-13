@@ -1,0 +1,27 @@
+<form [formGroup]="myform" (ngSubmit)="SaveUser()">
+    <h1 mat-dialog-title>{{inputdata.title}}</h1>
+    <div mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input formControlName="name" matInput>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input formControlName="email" matInput [readonly]="true">
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="address">
+        </mat-form-field>
+        <div>
+            <label>Avatar</label>
+            <br>
+            <img class="img-avatar" *ngIf="avatarPreview" [src]="avatarPreview" alt="no update">
+            <input type="file" (change)="onFileSelected($event)" accept="image/*">
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button mat-raised-button type="submit" color="primary">Save</button>
+        <button mat-dialog-close mat-raised-button color="warn">Close</button>
+    </div>
+</form>

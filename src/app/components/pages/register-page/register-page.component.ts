@@ -37,7 +37,7 @@ export class RegisterPageComponent implements OnInit{
   }
 
   get fc(){
-  return this.registerForm.controls;
+    return this.registerForm.controls;
   }
 
   Openpopup(code: any, title: any,component:any) {
@@ -61,13 +61,13 @@ export class RegisterPageComponent implements OnInit{
     this.isSubmitted = true;
     if(this.registerForm.invalid) return;
 
-    const formData = {
-      name: this.fc.name.value,
-      email: this.fc.email.value,
-      address: this.fc.address.value,
-      password: this.fc.password.value,
-      confirmPassword: this.fc.comfirmPassword.value
-    };
+    // const formData = {
+    //   name: this.fc.name.value,
+    //   email: this.fc.email.value,
+    //   address: this.fc.address.value,
+    //   password: this.fc.password.value,
+    //   confirmPassword: this.fc.comfirmPassword.value
+    // };
 
     this.userService.register({name: this.fc.name.value ,email: this.fc.email.value, address: this.fc.address.value ,password: this.fc.password.value, confirmPassword: this.fc.comfirmPassword.value }).subscribe(()=>{
       //this.router.navigateByUrl(this.returnURL);

@@ -13,7 +13,7 @@ export class SocketIoService {
     private socket: Socket, 
     private toastrService: ToastrService, 
     private router: Router,
-    notificationService: NotificationsService
+    private notificationService: NotificationsService
   ) { 
     this.listenForFoodCreated(); 
     this.listenForDiscountCreated();
@@ -26,6 +26,7 @@ export class SocketIoService {
         "Notification",
         data.noti_options.foodId
       );
+      this.notificationService.getAllNoti().subscribe();
     });
   }
 
@@ -36,6 +37,7 @@ export class SocketIoService {
         "Notification",
         data.noti_options.discountId
       );
+      this.notificationService.getAllNoti().subscribe();
     });
   }
 

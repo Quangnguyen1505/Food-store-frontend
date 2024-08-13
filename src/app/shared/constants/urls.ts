@@ -13,6 +13,7 @@ export const USER_FINAL_SIGNUP = USER_URL + '/finalSingup'
 export const USER_LOGOUT = USER_URL + '/logout'
 export const USER_FORGOTPASSWORD = USER_URL + '/forgotpassword'
 export const USER_RESETPASSWORD = USER_URL + '/reset-password'
+export const USER_CHANGEPASSWORD = USER_URL + '/change-password'
 export const USER_PROFILE = USER_URL + '/profile'
 
 export const CART_URL = BASE_URL + '/v1/api/cart'
