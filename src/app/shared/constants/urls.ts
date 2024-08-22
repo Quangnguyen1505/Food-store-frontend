@@ -1,4 +1,4 @@
-import { environment } from "src/enviroment/environment"
+import { environment } from "src/environment/environment"
 
 // const BASE_URL = 'http://localhost:3000'
 const BASE_URL = environment.envVar.endpointUrl;
