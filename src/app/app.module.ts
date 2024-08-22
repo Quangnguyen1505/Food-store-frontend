@@ -49,7 +49,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 
 //enviroment
-import { environment } from 'src/environment/environment';
+import { environment } from 'src/environments/environment';
 
 //socket
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
