@@ -48,11 +48,14 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatBadgeModule } from '@angular/material/badge';
 import { MatMenuModule } from '@angular/material/menu';
 
+//enviroment
+import { environment } from 'src/enviroment/environment';
+
 //socket
 import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 import { BodyEditUserComponent } from './components/partials/body-edit-user/body-edit-user.component';
 import { ChangePasswordComponent } from './components/pages/profile/change-password/change-password.component';
-const config: SocketIoConfig = { url: 'http://localhost:3000', options: {} };
+const config: SocketIoConfig = { url: environment.envVar.endpointUrl, options: {} };
 
 @NgModule({
   declarations: [

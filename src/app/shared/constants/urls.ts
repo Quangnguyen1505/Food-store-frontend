@@ -1,4 +1,7 @@
-const BASE_URL = 'http://localhost:3000'
+import { environment } from "src/enviroment/environment"
+
+// const BASE_URL = 'http://localhost:3000'
+const BASE_URL = environment.envVar.endpointUrl;
 
 export const FOOD_URL = BASE_URL + '/v1/api/food'
 export const FOOD_URL_ID = FOOD_URL + '/findone/'
